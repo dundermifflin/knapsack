@@ -9,8 +9,6 @@ Know that this is not coherent with the Makersquare Contribution Guidelines, but
 ###Steps to Contribute
 
 - Anything in the master branch is deployable
-- To work on something new, create a descriptively named  branch off of master (ie: factory-login)
-- Commit to that branch locally and regularly push your work to the same named branch on the server
 - Always pull in new changes from the master branch when appropriate to make sure the code that someone else pushed does not break yours. If it does talk to that person and figure out a way to fix it that makes both of you happy.
 - When you need feedback or help, or you think the branch is ready for merging, open a pull request
 - After someone else has reviewed and signed off on the feature, you can merge it into master
