@@ -1,12 +1,12 @@
 # Knapsack 2.0
 
-Knapsack 1.0 is a web application platform to allow the user to categorize books in different collections.Users have the ability to recommend books to other Knapsack users in an intuitive manner via a simple and clean interface.
+Knapsack 2.0 is a web application platform to allow the user to categorize books in different collections.Users have the ability to recommend books to other Knapsack users in an intuitive manner via a simple and clean interface.
 
 ## Team
 
   - __Product Owner__: Andrew Huang
   - __Scrum Master__: Yusuf Modan
-  - __Development Team Members__: Melody Lu,  Robert Velasco
+  - __Development Team Members__: Melody Lu,  Robert Velasco, Rachel Lader
 
 ## Table of Contents
 
