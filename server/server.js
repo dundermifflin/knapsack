@@ -196,18 +196,33 @@ app.get("/api/collections", function(req, res) {
 //Unit Test : Pass (10/28/2015)
 
 app.post("/api/collections", function(req, res) {
-  Collection.create({
-    collection: req.body.collection
-  }).then(function(collection) {
-    User.findOne({
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user){
+    Collection.findOne({
       where: {
-        user_name: req.session.user.user_name
+        user_id: user.id,
+        collection: req.body.collection
       }
-    }).then(function(user) {
-      user.addCollection(collection);
-      res.status(201).send("succesfully added collection");
-    });
-  });
+    }).then(function(collection){
+      if(!collection){
+        Collection.create({
+          collection: req.body.collection
+        }).then(function(collection) {
+          User.findOne({
+            where: {
+              user_name: req.session.user.user_name
+            }
+          }).then(function(user) {
+            user.addCollection(collection);
+            res.status(201).send("succesfully added collection");
+          });
+        });
+      }
+    })
+  })
 });
 
 app.post("/api/collections/delete", function(req, res) {
