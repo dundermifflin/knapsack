@@ -75,30 +75,65 @@ angular.module("knapsack.services", [])
 
   }])
 
-.factory("Profile", function(){
-  var addAbout= function(input){
-    return $http({
-      method: 'POST',
-      url: "api/addAbout"
-    })
-    // .then(function success(resp){
-    //   console.log(resp.status + ':successfully added About section to database');
-    // })
-  }
+.factory("Profile", function($http) {
 
-  var addFacts= function(facts){
-    return $http({
-      method:'POST',
-      url:'api/addFacts'
-    })
-  }
+    var loadUser = function(){
+      return $http({
+        method:'GET', 
+        url: "api/loadUser"
+      }).then(function(resp){
+        return resp.data
+      })
+    }
+    
+    var addAbout = function(about) {
+      console.log('in addAbout service')
+      return $http({
+          method: 'POST',
+          url: "api/addAbout",
+          params: {
+            about: about
+          }
+        })
+        // .then(function success(resp){
+        //   console.log(resp.status + ':successfully added About section to database');
+        // })
+    }
 
-  return {
-    addAbout: addAbout,
-    addFacts: addFacts
-  }
-})
-.factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {
+    var processFriend = function(friend) {
+      return $http({
+        method: 'POST',
+        url: "api/processFriend",
+        params: {
+          username: friend
+        }
+      }).then(function(resp) {
+        console.log('processFriendResponse', resp.data)
+        return resp.data
+      })
+    }
+
+    var addFacts = function(user) {
+      console.log('in addFact service')
+      return $http({
+        method: 'POST',
+        url: 'api/addFacts',
+        params: {
+          location: user.location,
+          favBook: user.favBook,
+          favAuthor: user.favAuthor,
+          age: user.age
+        }
+      })
+    }
+
+    return {
+      addAbout: addAbout,
+      addFacts: addFacts,
+      processFriend: processFriend
+    }
+  })
+  .factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {
 
     // get all collection names (ex. bestsellers, wine, ...)
     var getAll = function() {
@@ -253,6 +288,7 @@ angular.module("knapsack.services", [])
           url: "/api/friends"
         })
         .then(function succesCallback(resp) {
+          console.log('serviceFriends', resp.data)
           return resp.data;
         }, function errorCallback(resp) {
           console.log(resp.status + ": failed loading friends");
