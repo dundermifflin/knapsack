@@ -1,6 +1,7 @@
 angular.module('knapsack.profile', ["ui.router"])
 
 .controller('ProfileController', ['$scope', '$uibModal', function($scope, $uibModal) {
+  $scope.user={};
 
   $scope.aboutMeOpen = function() {
     var modalInstance = $uibModal.open({
@@ -36,6 +37,7 @@ angular.module('knapsack.profile', ["ui.router"])
 var AboutMeController = function($scope, userForm, Profile) {
   $scope.form = {};
   $scope.submitForm = function() {
+      console.log('USERFORM?', $scope.form)
     if ($scope.form.userForm.$valid) {
       Profile.addAbout(userAbout);
     } else {
@@ -46,18 +48,20 @@ var AboutMeController = function($scope, userForm, Profile) {
 
 var FactsController = function($scope, userForm, Profile) {
   $scope.form = {};
-  var facts = {
-    location: $scope.user.location,
-    age: $scope.user.age,
-    favBook: $scope.user.favBook,
-    favAuthor: $scope.user.favAuthor
-  };
+  // var facts = {
+  //   location: $scope.form.user.location,
+  //   age: $scope.form.user.age,
+  //   favBook: $scope.form.user.favBook,
+  //   favAuthor: $scope.form.user.favAuthor
+  // };
 
+  $scope.submitForm= function(){
   if ($scope.form.userForm.$valid) {
-    Profile.addFacts(JSON.stringify(facts));
+    Profile.addFacts(JSON.stringify($scope.user));
   } else {
     console.log('error submitting userFacts')
   }
+}
 }
 
 //need about me controller
