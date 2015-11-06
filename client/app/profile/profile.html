@@ -1,4 +1,20 @@
-<div class="landing-container">
-    <a ng-click="aboutMeOpen()" id="about-me-button">Tell Us Your Story</a>
-    <h1> hi </h1>
-</div>
+<div ng-controller="ProfileController">
+    <div ui-view="header">
+    </div>
+    <div class="col-md-12">
+        <img src="https://qph.is.quoracdn.net/main-thumb-61873910-200-flgtlwxelnrtvzobgqzvryllzphtlhzs.jpeg" class="img-circle profileImg" alt="Cinque Terre" width="304" height="236">
+    </div>
+    <div class="profile-container">
+        <div class="col-md-3" id="leftColProfile">
+            <h3> Meet _______</h3>
+            <a ng-click="aboutMeOpen()" id="about-me-button">Edit</a>
+        </div>
+        <div class="col-md-6" id="leftColProfile">
+            <h3> Tell Us Your Story </h3>
+            <a ng-click="aboutMeOpen()" id="about-me-button">Edit</a>
+        </div>
+        <div class="col-md-3" id="midColProfile">
+            <h3>Read Between The Lines </h3>
+            <a ng-click="factsOpen()" id="facts-button">Edit</a>
+        </div>
+    </div>

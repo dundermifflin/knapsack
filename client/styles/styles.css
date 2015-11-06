@@ -1,9 +1,9 @@
 li {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .collections a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 
@@ -20,193 +20,222 @@ need some extra modifications
 }*/
 
 body {
-  width: 100%;
-  height: 600px;
-  font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 600px;
+    font-family: 'Roboto', sans-serif;
 }
 
-.row, header {
+
+.profile-container {
+    margin-top: 50px;
+    text-align: center;
+    border: 3px solid #B8E986;
+}
+
+.row header {
   position: relative;
   width: 80%;
   margin: 0 auto;
   padding-top: 50px;
 }
 
-input[type=text]:focus, input[type=password]:focus{
-  box-shadow: 0 0 5px rgba(184, 233, 134, 1);
-  border: 1px solid rgba(184, 233, 134, 1);
+.profileImg {
+    width: 10%;
+    height: auto;
+    margin-left: 45%;
+    margin-right: 50%;
+}
+
+.row,
+header {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+    box-shadow: 0 0 5px rgba(184, 233, 134, 1);
+    border: 1px solid rgba(184, 233, 134, 1);
 }
 
 a header {
-  color: #4A4A4A;
+    color: #4A4A4A;
 }
 
 i {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .landing-container {
-  position: relative;
-  width: 60%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 50px;
-  color: #4A4A4A;
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 50px;
+    color: #4A4A4A;
 }
 
-#sign-up-button, #logout-button {
-  -moz-border-radius: 11px;
-  -webkit-border-radius: 11px;
-  border-radius: 11px;
-  border: 3px solid #B8E986;
-  display: inline-block;
-  cursor: pointer;
-  /*font-family: 'Roboto', sans-serif;*/
-  font-weight: 300;
-  font-size: 24px;
-  color: #4A4A4A;
-  padding: 6px 36px;
-  text-decoration: none;
+#sign-up-button,
+#logout-button {
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+    border: 3px solid #B8E986;
+    display: inline-block;
+    cursor: pointer;
+    /*font-family: 'Roboto', sans-serif;*/
+    font-weight: 300;
+    font-size: 24px;
+    color: #4A4A4A;
+    padding: 6px 36px;
+    text-decoration: none;
 }
 
 a.navbar-brand {
-  font-size: 20px;
-  color: #4A4A4A;
+    font-size: 20px;
+    color: #4A4A4A;
 }
 
-.pagination>.active>a, .pagination>.active>a:hover   {
-  background-color: #B8E986;
-  border-color:#B8E986;
-  color: #4A4A4A;
+.pagination>.active>a,
+.pagination>.active>a:hover {
+    background-color: #B8E986;
+    border-color: #B8E986;
+    color: #4A4A4A;
 }
 
-.pagination>li>a{
-  color: #4A4A4A;
+.pagination>li>a {
+    color: #4A4A4A;
 }
+
 .navbar-right {
-  padding-right: 20px;
+    padding-right: 20px;
 }
 
-#sign-up-button:hover, #logout-button:hover {
-  background-color: #B8E986;
-  opacity: 50%;
+#sign-up-button:hover,
+#logout-button:hover {
+    background-color: #B8E986;
+    opacity: 50%;
 }
 
 #logout-button {
-  font-size: 20px;
-  padding: 6px 20px;
+    font-size: 20px;
+    padding: 6px 20px;
 }
 
 button {
-  -moz-border-radius: 11px;
-  -webkit-border-radius: 11px;
-  border-radius: 11px;
-  border: 3px solid #B8E986;
-  display: inline-block;
-  cursor: pointer;
-  font-weight: 300;
-  font-size: 16px;
-  padding: 4px 18px;
-  text-decoration: none;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+    border: 3px solid #B8E986;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 16px;
+    padding: 4px 18px;
+    text-decoration: none;
 }
 
 .sign-small {
-  color: #4A4A4A;
-  background-color: #FFFFFF;
+    color: #4A4A4A;
+    background-color: #FFFFFF;
 }
 
 .sign-small:hover {
-  background-color: #B8E986;
-  opacity: 50%;
+    background-color: #B8E986;
+    opacity: 50%;
 }
 
 .cancel-small {
-  border: 3px solid #80848C;
-  background-color: #FFFFFF
+    border: 3px solid #80848C;
+    background-color: #FFFFFF
 }
 
 .cancel-small:hover {
-  opacity: 50%;
-  background-color: #80848C;
+    opacity: 50%;
+    background-color: #80848C;
 }
 
 .uib-dropdown-menu {
-  max-height: 150px;
-  overflow-y: scroll;
+    max-height: 150px;
+    overflow-y: scroll;
 }
 
-.uib-dropdown-menu>li{
-  padding: 0 5px;
-  cursor: pointer;
-  border-top: 5px;
-  border-color: #DDDDDD;
+.uib-dropdown-menu>li {
+    padding: 0 5px;
+    cursor: pointer;
+    border-top: 5px;
+    border-color: #DDDDDD;
 }
 
 h1.landing-header {
-  padding-top: 50px;
-  padding-bottom: 25px;
-  font-size: 80px;
-  font-weight: 100;
-  margin-top: 0px;
-  margin-bottom: 0px;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    font-size: 80px;
+    font-weight: 100;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 h3 {
-  font-weight: 100;
+    font-weight: 100;
 }
 
 h3.current-collection {
-  margin-top: 5px;
-  margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
 a {
-  text-decoration: none;
-  color: #B8E986;
-  font-weight: 300;
-  cursor: pointer;
+    text-decoration: none;
+    color: #B8E986;
+    font-weight: 300;
+    cursor: pointer;
 }
 
 a:hover {
-  text-decoration: none;
-  font-weight: 400;
-  color: #B8E986;
+    text-decoration: none;
+    font-weight: 400;
+    color: #B8E986;
 }
 
 a.book-category {
-  font-size: 18px;
-  color: #4A4A4A;
+    font-size: 18px;
+    color: #4A4A4A;
 }
 
 .collections {
-  line-height: 2;
+    line-height: 2;
 }
 
 #new-collection {
-  font-size: 18px;
-  border: none;
-  width: 130px;
-  font-style: italic;
-  font-weight: 100;
+    font-size: 18px;
+    border: none;
+    width: 130px;
+    font-style: italic;
+    font-weight: 100;
 }
 
 #new-book {
-  font-size: 16px;
-  border: none;
-  width: 220px;
-  font-style: italic;
-  font-weight: 100;
+    font-size: 16px;
+    border: none;
+    width: 220px;
+    font-style: italic;
+    font-weight: 100;
 }
 
 .landing-table {
-  padding-top: 50px;
+    padding-top: 50px;
 }
 
-.book-table, .landing-table {
-  text-transform:capitalize;
+.book-table,
+.landing-table {
+    text-transform: capitalize;
 }
+
 table {
-  border: 3px solid #B8E986;
-  border-collapse: inherit;
-  text-align: left;
+    border: 3px solid #B8E986;
+    border-collapse: inherit;
+    text-align: left;
 }

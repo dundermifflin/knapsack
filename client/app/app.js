@@ -38,10 +38,6 @@ angular.module("knapsack", [
       .state("dashboard", {
         url: "/",
         views: {
-          "friendsearch@dashboard": {
-            templateUrl: "app/dashboard/friendsearch.html",
-            controller: "DropdownCtrl"
-          },
           "main": {
             templateUrl: "app/dashboard/dashboard.html"
           },
