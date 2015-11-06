@@ -76,7 +76,6 @@ angular.module("knapsack.services", [])
   }])
 
 .factory("Profile", function(){
-
   var addAbout= function(input){
     return $http({
       method: 'POST',
@@ -95,11 +94,11 @@ angular.module("knapsack.services", [])
   }
 
   return {
-    addAbout: addAbout, 
+    addAbout: addAbout,
     addFacts: addFacts
   }
 })
-.factory("Collections", ["$http", function($http) {
+.factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {
 
     // get all collection names (ex. bestsellers, wine, ...)
     var getAll = function() {
@@ -153,6 +152,7 @@ angular.module("knapsack.services", [])
           user: user
         })
       }).then(function succesCallback(resp) {
+        snackbar.create("Shared " + Utils.properCaps(collection) + " with " + Utils.properCaps(user) + "!", 3000);
         console.log(resp.status + ": succesfully shared collection");
       }, function errorCallback(resp) {
         console.log(resp.status + ": failed sharing collection");
@@ -167,7 +167,7 @@ angular.module("knapsack.services", [])
     };
 
   }])
-  .factory("Contents", ["$http", function($http) {
+  .factory("Contents", ["$http", "Utils", "snackbar", function($http, Utils, snackbar) {
     //Molly's NYTimes Bestsellers API key / URI.
     //http://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=b2f850985c69c53458eac07ce2f7a874%3A7%3A65642337
 
@@ -239,6 +239,7 @@ angular.module("knapsack.services", [])
           })
         })
         .then(function succesCallback(resp) {
+          snackbar.create("Shared " + Utils.properCaps(book.title) + " with " + Utils.properCaps(user) + "!", 3000);
           console.log("succesfully shared book to user: " + user);
         }, function errorCallback(resp) {
           console.log(resp.status + ": failed sharing book with user: " + user);
@@ -258,7 +259,6 @@ angular.module("knapsack.services", [])
         });
     };
 
-
     return {
       getBooks: getBooks,
       addBook: addBook,
@@ -266,6 +266,26 @@ angular.module("knapsack.services", [])
       getNytimes: getNytimes,
       getFriends: getFriends,
       shareBook: shareBook
+    };
+
+  }])
+  .factory("Utils", ["$http", "$window", function($http, $window) {
+
+    var properCaps = function(string) {
+      var tempArr = string.split(" ");
+      var returnArray = [];
+
+      tempArr.forEach(function(word) {
+        var tempWord = '';
+        tempWord += word.slice(0, 1).toUpperCase();
+        tempWord += word.slice(1).toLowerCase();
+        returnArray.push(tempWord);
+      });
+      return returnArray.join(' ');
+    };
+
+    return {
+      properCaps: properCaps
     };
 
   }]);
