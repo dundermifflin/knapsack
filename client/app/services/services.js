@@ -75,7 +75,30 @@ angular.module("knapsack.services", [])
 
   }])
 
+.factory("Profile", function(){
 
+  var addAbout= function(input){
+    return $http({
+      method: 'POST',
+      url: "api/addAbout"
+    })
+    // .then(function success(resp){
+    //   console.log(resp.status + ':successfully added About section to database');
+    // })
+  }
+
+  var addFacts= function(facts){
+    return $http({
+      method:'POST',
+      url:'api/addFacts'
+    })
+  }
+
+  return {
+    addAbout: addAbout, 
+    addFacts: addFacts
+  }
+})
 .factory("Collections", ["$http", function($http) {
 
     // get all collection names (ex. bestsellers, wine, ...)

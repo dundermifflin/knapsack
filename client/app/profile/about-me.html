@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h3>Tell us your story!</h3>
+</div>
+<form name="userForm" ng-submit="submitAbout()" novalidate>
+  <div class="modal-body">
+    <div class="form-group">
+      <label>About you:</label>
+      <input type="text" name="about" class="form-control" ng-model="user.userForm" ng-minlength="10" ng-maxlength="500" required>
+      <p ng-show="form.userForm.about.$error.minlength" class="help-block">Tell us some more!</p>
+      <p ng-show="form.userForm.about.$error.maxlength" class="help-block">Max limit: 500</p>
+    </div>
+    <div class="modal-footer">
+      <button href="/" type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
+      <button class="cancel-small" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

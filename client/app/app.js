@@ -5,7 +5,8 @@ angular.module("knapsack", [
     "knapsack.services",
     "knapsack.main",
     "knapsack.sidebar",
-    "knapsack.auth"
+    "knapsack.auth", 
+    "knapsack.profile"
   ])
   .controller('AppController', function($scope, $location, Auth, AUTH_EVENTS) {
     $scope.currentUser = null;
@@ -36,6 +37,10 @@ angular.module("knapsack", [
       .state("dashboard", {
         url: "/",
         views: {
+          "friendsearch@dashboard": {
+            templateUrl: "app/dashboard/friendsearch.html",
+            controller: "DropdownCtrl"
+          },
           "main": {
             templateUrl: "app/dashboard/dashboard.html"
           },
@@ -45,17 +50,38 @@ angular.module("knapsack", [
           },
           "sidebar@dashboard": {
             templateUrl: "app/sidebar/sidebar.html",
-            controller: "SidebarController",
+            controller: "SidebarController"
           },
           "header@dashboard": {
             templateUrl: "app/auth/header.html",
-            controller: "authController",
+            controller: "authController"
+          }
+        }
+      })
+      .state("profile", {
+        url: "/profile",
+        views: {
+          "main": {
+            templateUrl: "app/profile/profile.html",
+            controller: "ProfileController"
+          },
+          "friendsearch@profile": {
+            templateUrl: "app/dashboard/friendsearch.html",
+            controller: "DropdownCtrl"
+          },
+          "header@profile": {
+            templateUrl: "app/auth/header.html",
+            controller: "authController"
           }
         }
       })
       .state("collection", {
         url: "/collection/:collection",
         views: {
+          "friendsearch@collection": {
+            templateUrl: "app/dashboard/friendsearch.html",
+            controller: "DropdownCtrl"
+          },
           "main": {
             templateUrl: "app/dashboard/dashboard.html"
           },
