@@ -200,14 +200,14 @@ app.post("/api/collections", function(req, res) {
     where: {
       user_name: req.session.user.user_name
     }
-  }).then(function(user){
+  }).then(function(user) {
     Collection.findOne({
       where: {
         user_id: user.id,
         collection: req.body.collection
       }
-    }).then(function(collection){
-      if(!collection){
+    }).then(function(collection) {
+      if (!collection) {
         Collection.create({
           collection: req.body.collection
         }).then(function(collection) {
@@ -403,6 +403,57 @@ app.post("/api/collection/share", function(req, res) {
   });
 });
 
+//POST request to add about me section to existing user
+
+app.post("api/addAbout", function(req, res) {
+  console.log("in server addAbout");
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user) {
+    user.updateAttributes({
+      about_me: req.query.about
+    }).success(function() {
+      console.log("succesfully added about me to user")
+    });
+  });
+});
+
+
+//POST request to updat user_facts attributes
+
+app.post("api/addFacts", function(req, res) {
+  console.log("in server addFacts")
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user) {
+    user.updateAttributes({
+      location: req.query.location,
+      favBook: req.query.favBook,
+      favAuthor: req.query.favAuthor,
+      age: req.query.age
+    }).success(function() {
+      console.log("succesfully added facts to user")
+    });
+  });
+});
+
+//Send friend data back to front-end
+
+app.post("api/processFriend", function(req, res){
+  console.log("in server processFriend")
+  User.findOne({
+    where: {
+      user_name: req.query.username
+    }
+  }).then(function(user){
+    res.send(user.attributes)
+  });
+});
+
 //GET request to get NYTimes bestsellers for default bestsellers list
 
 app.get("/api/collection/nytimes", function(req, res) {
@@ -424,17 +475,29 @@ app.get("/api/collection/nytimes", function(req, res) {
     });
 });
 
-//GET request to get users from the database
-//Unit Test : Pass (11/2/2015)
+//GET request to get friends from the database
 
 app.get("/api/friends", function(req, res) {
-  User.findAll().then(function(users) {
-    users = _.map(users, function(user) {
-      return user.user_name;
+  console.log("in server GET friends")
+  User.findOne()
+  .then(function(user) {
+    friends = _.map(user.friends, function(friend) {
+      return [friend.user_name, friend.photo_url];
     });
-    res.send(users);
+    res.send(friends);
   });
 });
+
+//GET request to load all properties of current user
+
+app.get("api/loadUser", function(req, res) {
+  console.log("in server loadUser")
+  User.findOne({
+    user_name: req.session.user.user_name
+  }).then(function(user){
+    res.send(user);
+  })
+})
 
 /************************************************************/
 // HANDLE WILDCARD ROUTES - IF ALL OTHER ROUTES FAIL
