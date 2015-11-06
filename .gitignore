@@ -36,3 +36,5 @@ config/localPWD.js
 
 # ds
 .DS_Store
+
+config/localPWD.js

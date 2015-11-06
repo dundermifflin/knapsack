@@ -1,5 +1,5 @@
 angular.module("knapsack.main", [])
-  .controller("MainController", ["$scope", "$window", "$location", "$http", "Contents", function($scope, $window, $location, $http, Contents) {
+  .controller("MainController", ["$scope", "$window", "$location", "$http", "Contents", "snackbar", "Utils", function($scope, $window, $location, $http, Contents, snackbar, Utils) {
     $scope.newBook = {
       title: "",
       author: ""
@@ -24,8 +24,8 @@ angular.module("knapsack.main", [])
       }).then(function(response) {
         return response.data.items.map(function(item) {
           var data = {
-            /* There are often multiple authors for books. This comes from the Google Books API via an array. 
-            For the sake of time, we are using this function to limit the amount of authors to the first result. 
+            /* There are often multiple authors for books. This comes from the Google Books API via an array.
+            For the sake of time, we are using this function to limit the amount of authors to the first result.
             In the future, this would be good to flush out to allow for storing multiple authors in the DB
             */
             author: item.volumeInfo.authors === undefined ? "" : item.volumeInfo.authors[0],
