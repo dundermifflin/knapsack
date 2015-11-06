@@ -35,3 +35,5 @@ client/lib/
 
 # ds
 .DS_Store
+
+config/localPWD.js

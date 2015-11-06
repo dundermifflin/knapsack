@@ -5,7 +5,8 @@ angular.module("knapsack", [
     "knapsack.services",
     "knapsack.main",
     "knapsack.sidebar",
-    "knapsack.auth", 
+    "knapsack.auth",
+    "angular.snackbar"
     "knapsack.profile"
   ])
   .controller('AppController', function($scope, $location, Auth, AUTH_EVENTS) {
