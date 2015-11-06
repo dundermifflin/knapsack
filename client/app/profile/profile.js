@@ -1,6 +1,6 @@
 angular.module('knapsack.profile', ["ui.router"])
 
-.controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', function($scope, $uibModal, Contents, $state) {
+.controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
   $scope.user = {}
 
   $scope.loadUser = function() {
@@ -16,8 +16,7 @@ angular.module('knapsack.profile', ["ui.router"])
         $scope.friends = users;
       });
   };
-  $scope.loadUser();
-  $scope.loadFriends();
+
 
   $scope.processFriend = function(friend) {
     Profile.processFriend(friend).then(function(resp) {
@@ -54,7 +53,8 @@ angular.module('knapsack.profile', ["ui.router"])
       }
     });
   };
-
+  $scope.loadUser();
+  $scope.loadFriends();
 }])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {

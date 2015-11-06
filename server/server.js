@@ -427,7 +427,7 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get users from the database
 //Unit Test : Pass (11/2/2015)
 
-app.get("/api/friends", function(req, res) {
+app.get("/api/getUsers", function(req, res) {
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;

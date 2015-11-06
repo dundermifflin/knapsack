@@ -85,7 +85,7 @@ angular.module("knapsack.services", [])
         return resp.data
       })
     }
-    
+
     var addAbout = function(about) {
       console.log('in addAbout service')
       return $http({
@@ -130,7 +130,8 @@ angular.module("knapsack.services", [])
     return {
       addAbout: addAbout,
       addFacts: addFacts,
-      processFriend: processFriend
+      processFriend: processFriend, 
+      loadUser: loadUser
     }
   })
   .factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {
@@ -282,10 +283,10 @@ angular.module("knapsack.services", [])
     };
 
 
-    var getFriends = function() {
+    var getUsers = function() {
       return $http({
           method: "GET",
-          url: "/api/friends"
+          url: "/api/getUsers"
         })
         .then(function succesCallback(resp) {
           console.log('serviceFriends', resp.data)
@@ -300,7 +301,7 @@ angular.module("knapsack.services", [])
       addBook: addBook,
       removeBook: removeBook,
       getNytimes: getNytimes,
-      getFriends: getFriends,
+      getUser: getUsers,
       shareBook: shareBook
     };
 

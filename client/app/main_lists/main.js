@@ -82,10 +82,10 @@ angular.module("knapsack.main", [])
   }])
 
 .controller("DropdownCtrl", ["$scope", "Contents", function($scope, Contents) {
-  $scope.loadFriends = function() {
-    Contents.getFriends()
+  $scope.loadUsers = function() {
+    Contents.getUsers()
       .then(function(users) {
-        $scope.friends = users;
+        $scope.users = users;
       });
   };
 

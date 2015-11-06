@@ -55,6 +55,23 @@ angular.module("knapsack", [
           }
         }
       })
+      .state("friend", {
+        url:"/friend", 
+        views:{
+          "main": {
+            templateUrl: "app/profile/friendView.html",
+            controller: "ProfileController"
+          },
+          "friendsearch@friend": {
+            templateUrl: "app/dashboard/friendsearch.html",
+            controller: "DropdownCtrl"
+          },
+          "header@friend": {
+            templateUrl: "app/auth/header.html",
+            controller: "authController"
+          }
+        }
+      })
       .state("profile", {
         url: "/profile",
         views: {
