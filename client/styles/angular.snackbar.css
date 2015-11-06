@@ -1,0 +1,60 @@
+.snackbar-container {
+  position: fixed;
+  left: 50%;
+  top: 70px;
+  z-index: 99999;
+}
+.snackbar {
+  overflow: hidden;
+  clear: both;
+  min-width: 188px;
+  max-width: 568px;
+  /*min-width: 588px;
+  max-width: 868px;*/
+  cursor: pointer;
+  /*background-image: url("http://www.americansweets.co.uk/ekmps/shops/statesidecandy/images/british-snickers-bar-case-of-48-x-48g-bars-22903-p.jpg");;
+  background-repeat: no-repeat; */
+  background-color: #FFFFFF;
+  color: #000000;
+  font-size: 14px;
+  border-radius: 11px;
+  border: 3px solid #B8E986;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, padding 0 linear 0.2s, height 0 linear 0.2s;
+  -moz-transform: translateY(200%);
+  -webkit-transform: translateY(200%);
+  transform: translateY(200%);
+}
+.snackbar.snackbar-opened {
+  height: auto;
+  padding: 14px 15px;
+  margin-bottom: 20px;
+  height: auto;
+
+  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in, height 0 linear 0.2s, height 0 linear 0.2s;
+  -moz-transform: none;
+  -webkit-transform: none;
+  transform: none;
+}
+@media (max-width: 767px) {
+  .snackbar-container {
+    left: 0px !important;
+    right: 0px;
+    width: 100%;
+  }
+  .snackbar-container .snackbar {
+    min-width: 100%;
+  }
+  .snackbar-container [class="snackbar snackbar-opened"] ~ .snackbar.toast {
+    margin-top: 20px;
+  }
+  .snackbar-container [class="snackbar snackbar-opened"] {
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+}
