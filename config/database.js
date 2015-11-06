@@ -1,12 +1,10 @@
 //establish database connection
 
 var Sequelize = require("sequelize");
-var localPWD;
 var heroku;
 
 try {
-  localPWD = require("./localPWD.js");
-  heroku = new localPWD();
+  heroku = require("./localPWD.js");
 } catch (err) {
   console.log(err, "... but s'all good");
   // Capture process.env url during node's start up
