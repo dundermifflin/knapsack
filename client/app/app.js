@@ -36,10 +36,6 @@ angular.module("knapsack", [
       .state("dashboard", {
         url: "/",
         views: {
-          "friendsearch@dashboard": {
-            templateUrl: "app/dashboard/friendsearch.html",
-            controller: "DropdownCtrl"
-          },
           "main": {
             templateUrl: "app/dashboard/dashboard.html"
           },
@@ -60,10 +56,6 @@ angular.module("knapsack", [
       .state("collection", {
         url: "/collection/:collection",
         views: {
-           "friendsearch@collection": {
-            templateUrl: "app/dashboard/friendsearch.html",
-            controller: "DropdownCtrl"
-          },
           "main": {
             templateUrl: "app/dashboard/dashboard.html"
           },
