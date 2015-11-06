@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
 		user_name: DataTypes.STRING,
 		password: DataTypes.STRING,
     about_me: DataTypes.STRING,
-    facts: DataTypes.STRING,
+    user_facts: DataTypes.STRING,
     photo_url: DataTypes.STRING
 	}, {
 		timestamps: false, // no created or update dates
