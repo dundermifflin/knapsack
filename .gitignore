@@ -31,7 +31,8 @@ client/lib/
 *.orig
 
 # database
-*.sqlite
+*.postgres
+config/localPWD.js
 
 # ds
 .DS_Store
