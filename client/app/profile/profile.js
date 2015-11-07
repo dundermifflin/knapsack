@@ -7,6 +7,7 @@ angular.module('knapsack.profile', ["ui.router"])
     Profile.loadUser()
       .then(function(user) {
         $scope.user = user;
+        console.log('USER', user)
       })
   }
 

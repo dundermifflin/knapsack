@@ -78,10 +78,12 @@ angular.module("knapsack.services", [])
 .factory("Profile", function($http) {
 
     var loadUser = function() {
+      console.log('in service load user')
       return $http({
         method: 'GET',
         url: "api/loadUser"
       }).then(function(resp) {
+        console.log('friend data', resp.data)
         return resp.data
       })
     }

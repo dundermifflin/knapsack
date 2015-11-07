@@ -446,11 +446,12 @@ app.post("/addAbout", function(req, res) {
     }
   }).then(function(user) {
     console.log('USERRESULT', user)
-    user.updateAttributes({
+    user.set({
       about_me: req.query.about
-    }).success(function() {
-      console.log("succesfully added about me to user")
-    });
+    })
+// .save().on('success',(function() {
+    //   console.log("succesfully added about me to user")
+    // }));
   });
 });
 
@@ -464,7 +465,7 @@ app.post("api/addFacts", function(req, res) {
       user_name: req.query.name
     }
   }).then(function(user) {
-    user.updateAttributes({
+    user.set({
       location: req.query.location,
       favBook: req.query.favBook,
       favAuthor: req.query.favAuthor,
