@@ -2,19 +2,37 @@ var express = require("express");
 var bodyParser = require("body-parser"); // request body parsing middleware (json, url)
 var morgan = require("morgan"); // log requests to the console
 var request = require("request");
-
 var session = require("express-session");
 var db = require("../config/database.js"); // connect to database
 
 var path = require("path");
 var _ = require('underscore');
-
+var Twit = require('Twit');
 var bcrypt = require("bcrypt-nodejs"); // hashing passwords
 var Promise = require("bluebird"); // for promisification
-
 var app = express();
 var port = process.env.PORT || 3000;
 var ip = "127.0.0.1";
+// var io = require('socket.io')(app);
+
+/*************/
+//SOCKETIO//
+// var tweet = new Twit({
+//   consumer_key: 'aeMWs2jDOaAiodglA2KxIZB5h',
+//   consumer_secret: 'okCtyrQDPQFzesnFgdi0UlANzzh8GWRhhQ786oaKOHebCHQJNh',
+//   access_token: '4020597793-ZHaqgUns6LCzXqezF3KOwr4fIEmYGyyEtvZgaXr',
+//   access_token_secret: 'AUu3HeTKjUgqkiPlbOtZY4aiRG6FQAqY98PuyVkMXzs7m'
+// })
+
+// var stream = tweet.stream('statuses/filter', {
+//   track: 'favorite book'
+// })
+
+// stream.on('connection', function(tweet) {
+// console.log(tweet)
+// io.sockets.emit('stream', tweet);
+
+// })
 
 
 /************************************************************/
@@ -406,7 +424,7 @@ app.post("/api/collection/share", function(req, res) {
     Collection.findOne({
       where: {
         collection: "recommended",
-        user_id: user_id
+        name: user_id
       }
     }).then(function(collection) {
       Book.create(req.body.book)
@@ -420,18 +438,20 @@ app.post("/api/collection/share", function(req, res) {
 
 //POST request to add about me section to existing user
 
-app.post("api/addAbout", function(req, res) {
+app.post("/addAbout", function(req, res) {
   console.log("in server addAbout");
   User.findOne({
     where: {
-      user_name: req.session.user.user_name
+      user_name: req.query.name
     }
   }).then(function(user) {
-    user.updateAttributes({
+    console.log('USERRESULT', user)
+    user.set({
       about_me: req.query.about
-    }).success(function() {
-      console.log("succesfully added about me to user")
-    });
+    })
+// .save().on('success',(function() {
+    //   console.log("succesfully added about me to user")
+    // }));
   });
 });
 
@@ -442,10 +462,10 @@ app.post("api/addFacts", function(req, res) {
   console.log("in server addFacts")
   User.findOne({
     where: {
-      user_name: req.session.user.user_name
+      user_name: req.query.name
     }
   }).then(function(user) {
-    user.updateAttributes({
+    user.set({
       location: req.query.location,
       favBook: req.query.favBook,
       favAuthor: req.query.favAuthor,
@@ -462,7 +482,7 @@ app.post("api/processFriend", function(req, res) {
   console.log("in server processFriend")
   User.findOne({
     where: {
-      user_name: req.query.username
+      user_name: req.query.name
     }
   }).then(function(user) {
     res.send(user.attributes)
@@ -493,6 +513,7 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get friends from the database
 
 app.get("/api/getUsers", function(req, res) {
+  console.log('in get users')
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
@@ -503,35 +524,41 @@ app.get("/api/getUsers", function(req, res) {
 
 //this may need to be changed 
 app.get("/api/friends", function(req, res) {
-  console.log("in server GET friends")
-  User.findOne({
-    user_name: req.session.user.user_name
-  })
-    .then(function(user) {
-      friends = _.map(user.friends, function(friend) {
-        return [friend.user_name, friend.photo_url];
+      console.log("in server GET friends")
+      User.findOne({
+          where: {
+            user_name: req.query.id
+          }
+          })
+        .then(function(user) {
+          friends = _.map(user.friends, function(friend) {
+            return [friend.user_name, friend.photo_url];
+          });
+          res.send(friends);
+        });
       });
-      res.send(friends);
+
+    //GET request to load all properties of current user
+
+    app.get("/api/loadUser", function(req, res) {
+      console.log("in server loadUser")
+      console.log('SESSION', req.session)
+      User.findOne({
+        where: {
+          user_name: req.session.user.user_name
+        }
+      }).then(function(user) {
+        console.log('result', user)
+        res.send(user);
+      })
     });
-});
 
-//GET request to load all properties of current user
+    /************************************************************/
+    // HANDLE WILDCARD ROUTES - IF ALL OTHER ROUTES FAIL
+    /************************************************************/
 
-app.get("/api/loadUser", function(req, res) {
-  console.log("in server loadUser")
-  User.findOne({
-    user_name: req.session.user.user_name
-  }).then(function(user) {
-    res.send(user);
-  })
-});
+    /************************************************************/
+    // START THE SERVER
+    /************************************************************/
+    app.listen(port); console.log("Knapsack is listening on port " + port);
 
-/************************************************************/
-// HANDLE WILDCARD ROUTES - IF ALL OTHER ROUTES FAIL
-/************************************************************/
-
-/************************************************************/
-// START THE SERVER
-/************************************************************/
-app.listen(port);
-console.log("Knapsack is listening on port " + port);
