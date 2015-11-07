@@ -7,12 +7,13 @@ angular.module('knapsack.profile', ["ui.router"])
     Profile.loadUser()
       .then(function(user) {
         $scope.user = user;
+        console.log('USER', user)
       })
   }
 
 
   $scope.loadFriends = function() {
-    Contents.getFriends()
+    Contents.getFriends($scope.user.user_name)
       .then(function(friends) {
         console.log('FRIENDS:', friends)
         $scope.friends = friends;
@@ -71,9 +72,9 @@ angular.module('knapsack.profile', ["ui.router"])
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
   $scope.form = {};
   $scope.submitAbout = function() {
-    console.log('USERFORM?', $scope.user)
+    console.log($scope.user)
     if ($scope.form.userForm.$valid) {
-      Profile.addAbout($scope.user.about);
+      Profile.addAbout($scope.user.user_name, $scope.user.about);
     } else {
       console.log("error submitting form")
     }
@@ -88,7 +89,7 @@ var FactsController = function($scope, userForm, Profile, $modalInstance) {
   $scope.form = {};
   $scope.submitFacts = function() {
     if ($scope.form.userForm.$valid) {
-      Profile.addFacts($scope.user);
+      Profile.addFacts($scope.user.user_name, $scope.user);
     } else {
       console.log('error submitting userFacts')
     }
