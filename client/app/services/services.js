@@ -88,14 +88,20 @@ angular.module("knapsack.services", [])
       })
     }
 
-    var addAbout = function(name, about) {
+    var addAbout = function(name, user) {
       console.log('in addAbout service')
+      console.log('NAME:', name)
+      console.log('USER', user)
       return $http({
           method: 'POST',
           url: "/addAbout",
           params: {
-            name: name,
-            about: about
+            user_name: name,
+            about_me: user.about_me, 
+            location: user.location,
+            age: user.age, 
+            fav_book: user.fav_book,
+            fav_author: user.fav_author
           }
         })
         // .then(function success(resp){
@@ -104,11 +110,12 @@ angular.module("knapsack.services", [])
     }
 
     var processFriend = function(friend) {
+      console.log('servicesFriend', friend)
       return $http({
         method: 'POST',
-        url: "api/processFriend",
+        url: "/processFriend",
         params: {
-          username: friend
+          user_name: friend
         }
       }).then(function(resp) {
         console.log('processFriendResponse', resp.data)
@@ -116,24 +123,23 @@ angular.module("knapsack.services", [])
       })
     }
 
-    var addFacts = function(name, user) {
-      console.log('in addFact service')
-      return $http({
-        method: 'POST',
-        url: 'api/addFacts',
-        params: {
-          name: name,
-          location: user.location,
-          favBook: user.favBook,
-          favAuthor: user.favAuthor,
-          age: user.age
-        }
-      })
-    }
+    // var addFacts = function(name, user) {
+    //   console.log('in addFact service')
+    //   return $http({
+    //     method: 'POST',
+    //     url: 'api/addFacts',
+    //     params: {
+    //       name: name,
+    //       location: user.location,
+    //       favBook: user.favBook,
+    //       favAuthor: user.favAuthor,
+    //       age: user.age
+    //     }
+    //   })
+    // }
 
     return {
       addAbout: addAbout,
-      addFacts: addFacts,
       processFriend: processFriend,
       loadUser: loadUser
     }
@@ -300,17 +306,17 @@ angular.module("knapsack.services", [])
         });
     };
 
-    var getFriends = function(username) {
-      return $http({
-        method: "GET",
-        url: "/api/friends", 
-        params:{
-          name: username
-        }
-      }).then(function(resp) {
-        return resp.data
-      })
-    }
+    // var getFriends = function(username) {
+    //   return $http({
+    //     method: "GET",
+    //     url: "/api/friends", 
+    //     params:{
+    //       name: username
+    //     }
+    //   }).then(function(resp) {
+    //     return resp.data
+    //   })
+    // }
 
     return {
       getBooks: getBooks,
@@ -318,8 +324,7 @@ angular.module("knapsack.services", [])
       removeBook: removeBook,
       getNytimes: getNytimes,
       getUsers: getUsers,
-      getFriends,
-      getFriends,
+      // getFriends: getFriends,
       shareBook: shareBook
     };
 

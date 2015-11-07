@@ -90,6 +90,14 @@ angular.module("knapsack.main", [])
         console.log(users)
       });
   };
-  $scope.loadFriends();
+
+  // $scope.getFriends= function(){
+  //   Contents.getFriends()
+  //   .then(function(friends){
+  //     $scope.friends=friends;
+  //   });
+  // }
+
+  // $scope.getFriends();
 
 }]);

@@ -11,7 +11,7 @@
         <div class="col-md-3" id="leftColProfile">
             <h3> Following</h3>
             <div class="container-fluid" id="searchfriends" ng-controller="DropdownCtrl">
-                <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="user for user in users | filter:$viewValue" typeahead-on-select="processFriend(user)">
+                <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="otherUser for otherUser in users | filter:$viewValue" typeahead-on-select="processFriend($item)">
             </div>
             <div id="friendList">
                 <div ng-repeat="friend in friends">
