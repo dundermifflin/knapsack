@@ -26,8 +26,9 @@
                 {{user.about_me}}
             </div> -->
 
+            <h4> Pending </h4>
             <div class="row">
-                <table st-safe-src="bookCollection" st-table="displayedCollection" class="table book-table">
+                <table st-safe-src="bookCollection" st-table="pending" class="table book-table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -35,13 +36,12 @@
                             <th>Shared by</th>
                         </tr>
                     </thead>
-                    <tr ng-repeat="book in displayedCollection">
+                    <tr ng-repeat="book in pending">
                         <td> {{book.title | lowercase}} </td>
                         <td> {{book.author}} </td>
                         <td> </td>
                     </tr>
                 </table>
-
 
             </div>
 

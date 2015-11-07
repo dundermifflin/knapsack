@@ -173,6 +173,11 @@ app.post("/api/signup", function(req, res) {
             }).then(function(collection) {
               user.addCollection(collection);
             });
+            Collection.create({
+              collection: "pending"
+            }).then(function(collection) {
+              user.addCollection(collection);
+            });
             res.status(201).send({
               id: req.session.id,
               user: req.session.user.user_name
@@ -423,7 +428,7 @@ app.post("/api/collection/share", function(req, res) {
     var user_id = user.id;
     Collection.findOne({
       where: {
-        collection: "recommended",  // change to pending
+        collection: "pending",  // change to pending
         name: user_id
       }
     }).then(function(collection) {
@@ -493,12 +498,13 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get friends from the database
 
 app.get("/api/getUsers", function(req, res) {
-  console.log('in get users')
+  console.log('in get users SERVER')
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
-    res.send(users)
+    console.log('users: ', users);
+    res.send(users);
   })
 });
 

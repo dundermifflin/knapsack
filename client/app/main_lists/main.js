@@ -71,6 +71,7 @@ angular.module("knapsack.main", [])
     };
 
     $scope.shareBook = function(book, user) {
+      console.log('share book mainjs');
       Contents.shareBook(dbCollection, {
         title: book.title,
         author: book.author
@@ -82,12 +83,11 @@ angular.module("knapsack.main", [])
   }])
 
 .controller("DropdownCtrl", ["$scope", "Contents", function($scope, Contents) {
-  $scope.loadFriends = function() {
-    console.log('loading friends')
-    Contents.getFriends()
+  $scope.loadUsers = function() {
+    console.log('load users mainjs');
+    Contents.getUsers()
       .then(function(users) {
-        $scope.friends = users;
-        console.log(users)
+        $scope.users = users;
       });
   };
 
