@@ -25,7 +25,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-
 .profile-container {
     margin-top: 50px;
     text-align: center;
@@ -33,10 +32,10 @@ body {
 }
 
 .row header {
-  position: relative;
-  width: 80%;
-  margin: 0 auto;
-  padding-top: 50px;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 50px;
 }
 
 .profileImg {
@@ -55,6 +54,7 @@ header {
 }
 
 input[type=text]:focus,
+input:focus,
 input[type=password]:focus {
     box-shadow: 0 0 5px rgba(184, 233, 134, 1);
     border: 1px solid rgba(184, 233, 134, 1);
@@ -75,6 +75,29 @@ i {
     text-align: center;
     padding-top: 50px;
     color: #4A4A4A;
+}
+
+#imgUpload {
+    width: 100px;
+}
+
+#friendList {
+    height: 60%;
+    width: auto;
+    border: 3px solid #B8E986;
+    margin-top: 20px;
+    padding-left: 10px;
+    text-align: center;
+}
+
+.facts {
+    height: 60%;
+    width: auto;
+    border: 3px solid #B8E986;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    text-align: left;
 }
 
 #sign-up-button,

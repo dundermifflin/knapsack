@@ -1,4 +1,4 @@
 <div class="container-fluid" ng-controller="DropdownCtrl">
-    <input type="text" ng-init="loadFriends()" ng-model="customSelected" placeholder="Search for your friends to connect!" uib-typeahead="user for user in friends | filter:$viewValue">
+    <input type="text" ng-init="loadUsers()" ng-model="customSelected" placeholder="Search for your friends to connect!" uib-typeahead="user for user in friends | filter:$viewValue">
 </div>
 <!-- typeahead-template-url="customTemplate.html -->

@@ -12,20 +12,19 @@
             </div>
             <div id="friendList">
                 <div ng-repeat="friend in friends">
-                    <span ng-click="processFriend(friend)">{{friend.user_name}}</span>
+                    <span ng-click="processFriend(friend)">{{friend}}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-6" id="leftColProfile">
             <h3> Hi, I'm {{user.username}}. </h3>
-            <a ng-click="aboutMeOpen()" id="about-me-button">Edit</a>
+            <li><a id="logout-button" href="#" ng-click="addFriend()">Add Friend</a></li>
             <div>
                 {{user.about}}
             </div>
         </div>
         <div class="col-md-3" id="midColProfile">
             <h3>Read Between The Lines </h3>
-            <a ng-click="factsOpen()" id="facts-button">Edit</a>
             <div class="facts">
                 <strong><h5>Location</strong>: {{user.location}}</h5>
                 </br>
@@ -33,7 +32,7 @@
                 </br>
                 <strong><h5>Favorite Book</strong>:{{user.favBook}}</h5>
                 </br>
-                <strong><h5>Favorite Author</strong>:{{user.favAuthor}}</h5>
+                <strong><h5>Favorite Author</strong>:{{user.author}}</h5>
             </div>
         </div>
     </div>
