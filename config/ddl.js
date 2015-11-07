@@ -19,7 +19,19 @@ ddl.users = db.define("users", {
     type: Sequelize.STRING
   },
 
-  user_facts: {
+  location: {
+    type: Sequelize.STRING
+  },
+
+  age: {
+    type: Sequelize.INTEGER
+  },
+
+  fav_book: {
+    type: Sequelize.STRING
+  },
+
+  fav_author: {
     type: Sequelize.STRING
   },
 
@@ -30,17 +42,6 @@ ddl.users = db.define("users", {
   freezeTableName: true
   //prevents sequelize from adding (s) to end of table
 });
-
-// ddl.friendLists = db.define("friendLists", {
-
-//   list: {
-//     type: Sequelize.STRING
-//   },
-
-//   freezeTableName: true
-
-// });
-
 
 ddl.collections = db.define("collections", {
 
