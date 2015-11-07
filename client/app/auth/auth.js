@@ -56,7 +56,7 @@ var SignupModalCtrl = function($scope, $rootScope, $location, $modalInstance, us
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
           $scope.setCurrentUser(user);
           $modalInstance.close();
-          $location.path("/collection/bestsellers");
+          $location.path("/profile");
         }
       }).catch(function(error) {
         $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
@@ -87,7 +87,7 @@ var SigninModalCtrl = function($scope, $rootScope, $location, $modalInstance, us
             $scope.setCurrentUser(user);
 
             $modalInstance.close();
-            $location.path("/collection/bestsellers");
+            $location.path("/profile");
           }
         }).catch(function(error) {
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);

@@ -22,7 +22,7 @@ angular.module("knapsack", [
     $scope.$on(AUTH_EVENTS.loginFailed, $location.path('/landing'))
   })
   .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouteProvider) {
-    $urlRouteProvider.otherwise("/");
+    // $urlRouteProvider.otherwise("/");
 
 
     $stateProvider

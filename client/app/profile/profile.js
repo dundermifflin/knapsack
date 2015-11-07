@@ -2,7 +2,7 @@ angular.module('knapsack.profile', ["ui.router"])
 
 .controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
   $scope.user = {}
-
+ 
   $scope.loadUser = function() {
     Profile.loadUser()
       .then(function(user) {
@@ -10,19 +10,29 @@ angular.module('knapsack.profile', ["ui.router"])
       })
   }
 
+
   $scope.loadFriends = function() {
     Contents.getFriends()
-      .then(function(users) {
-        console.log('FRIENDS:', users)
-        $scope.friends = users;
+      .then(function(friends) {
+        console.log('FRIENDS:', friends)
+        $scope.friends = friends;
       });
   };
 
+  $scope.getUsers = function() {
+    console.log('in get users')
+    Contents.getUsers()
+      .then(function(users) {
+        console.log('USERS:', users)
+        $scope.users = users
+      })
+  }
 
   $scope.processFriend = function(friend) {
     Profile.processFriend(friend).then(function(resp) {
       $state.go('friend', {
-        user: JSON.stringify(resp)
+        user: JSON.stringify(resp), 
+        location: false
       })
     })
   }

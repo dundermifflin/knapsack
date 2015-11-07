@@ -482,13 +482,16 @@ app.get("/api/getUsers", function(req, res) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
+    res.send(users)
   })
 });
 
-
+//this may need to be changed 
 app.get("/api/friends", function(req, res) {
   console.log("in server GET friends")
-  User.findOne()
+  User.findOne({
+    user_name: req.session.user.user_name
+  })
     .then(function(user) {
       friends = _.map(user.friends, function(friend) {
         return [friend.user_name, friend.photo_url];
