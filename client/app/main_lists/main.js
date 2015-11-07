@@ -89,13 +89,13 @@ angular.module("knapsack.main", [])
       });
   };
 
-  $scope.getFriends= function(){
-    Contents.getFriends()
-    .then(function(friends){
-      $scope.friends=friends;
-    });
-  }
+  // $scope.getFriends= function(){
+  //   Contents.getFriends()
+  //   .then(function(friends){
+  //     $scope.friends=friends;
+  //   });
+  // }
 
-  $scope.getFriends();
+  // $scope.getFriends();
 
 }]);

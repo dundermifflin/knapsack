@@ -17,10 +17,10 @@
             </div>
         </div>
         <div class="col-md-6" id="leftColProfile">
-            <h3> Hi, I'm {{user.username}}. </h3>
+            <h3> Hi, I'm {{user.user_name}}. </h3>
             <li><a id="logout-button" href="#" ng-click="addFriend()">Add Friend</a></li>
             <div>
-                {{user.about}}
+                {{user.about_me}}
             </div>
         </div>
         <div class="col-md-3" id="midColProfile">
@@ -30,9 +30,9 @@
                 </br>
                 <strong><h5>Age</strong>: {{user.age}}</h5>
                 </br>
-                <strong><h5>Favorite Book</strong>:{{user.favBook}}</h5>
+                <strong><h5>Favorite Book</strong>:{{user.fav_book}}</h5>
                 </br>
-                <strong><h5>Favorite Author</strong>:{{user.author}}</h5>
+                <strong><h5>Favorite Author</strong>:{{user.fav_author}}</h5>
             </div>
         </div>
     </div>
