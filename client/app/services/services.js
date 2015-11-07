@@ -296,12 +296,19 @@ angular.module("knapsack.services", [])
         });
     };
 
+    var getFriends= function(){
+      return $http({
+        method:"GET", 
+        url: "/api/friends"
+      })
+    }
+
     return {
       getBooks: getBooks,
       addBook: addBook,
       removeBook: removeBook,
       getNytimes: getNytimes,
-      getUser: getUsers,
+      getUsers: getUsers,
       shareBook: shareBook
     };
 
