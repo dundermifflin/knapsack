@@ -6,6 +6,11 @@ li {
     text-decoration: none;
 }
 
+#fileUpload{
+    width: 20%;
+    margin-left: 45%;
+    margin-right: 50%;
+}
 
 /*
 if we want the scroll through feature this might

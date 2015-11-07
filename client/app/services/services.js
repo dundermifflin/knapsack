@@ -86,12 +86,13 @@ angular.module("knapsack.services", [])
       })
     }
 
-    var addAbout = function(about) {
+    var addAbout = function(name, about) {
       console.log('in addAbout service')
       return $http({
           method: 'POST',
-          url: "api/addAbout",
+          url: "/addAbout",
           params: {
+            name: name,
             about: about
           }
         })
@@ -113,12 +114,13 @@ angular.module("knapsack.services", [])
       })
     }
 
-    var addFacts = function(user) {
+    var addFacts = function(name, user) {
       console.log('in addFact service')
       return $http({
         method: 'POST',
         url: 'api/addFacts',
         params: {
+          name: name,
           location: user.location,
           favBook: user.favBook,
           favAuthor: user.favAuthor,
@@ -296,10 +298,13 @@ angular.module("knapsack.services", [])
         });
     };
 
-    var getFriends = function() {
+    var getFriends = function(username) {
       return $http({
         method: "GET",
-        url: "/api/friends"
+        url: "/api/friends", 
+        params:{
+          name: username
+        }
       }).then(function(resp) {
         return resp.data
       })

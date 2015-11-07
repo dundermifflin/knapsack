@@ -2,7 +2,10 @@
     <div ui-view="header">
     </div>
     <div class="col-md-12">
-        <img src="https://qph.is.quoracdn.net/main-thumb-61873910-200-flgtlwxelnrtvzobgqzvryllzphtlhzs.jpeg" class="img-circle profileImg" alt="Cinque Terre" width="304" height="236">
+        <div class="text-center">
+            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+            <h6>Click To Change Profile Picture</h6>
+        </div>
     </div>
     <div class="profile-container">
         <div class="col-md-3" id="leftColProfile">
@@ -16,14 +19,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6" id="leftColProfile">
+        <div class="col-md-6" id="midColProfile">
             <h3> Hi, I'm {{user.username}}. </h3>
             <a ng-click="aboutMeOpen()" id="about-me-button">Edit</a>
             <div>
                 {{user.about}}
             </div>
         </div>
-        <div class="col-md-3" id="midColProfile">
+        <div class="col-md-3" id="rightColProfile">
             <h3>Read Between The Lines </h3>
             <a ng-click="factsOpen()" id="facts-button">Edit</a>
             <div class="facts">
