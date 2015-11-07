@@ -26,6 +26,7 @@ var ip = "127.0.0.1";
 var User = db.import(path.join(__dirname, "../models/Users"));
 var Collection = db.import(path.join(__dirname, "../models/Collections.js"));
 var Book = db.import(path.join(__dirname, "../models/Books.js"));
+var Rating = db.import(path.join(__dirname, "../models/Ratings.js"));
 
 //Relationships :
 //1.User can have many Collections.
@@ -38,6 +39,20 @@ Collection.belongsToMany(Book, {
 Book.belongsToMany(Collection, {
   through: "collections_to_books"
 });
+
+
+User.hasMany(User);
+User.belongsToMany(User, {
+  as: "friends",
+  through: "users_to_friends"
+});
+
+User.hasMany(Rating);
+Book.hasMany(Rating);
+
+
+
+
 
 //Initialize Database
 
@@ -345,8 +360,8 @@ app.post("/api/collection", function(req, res) {
 
 app.post("/api/collection/delete", function(req, res) {
   // NY Times bestsellers arent stored in the database, theyre an
-  // an API call (not stored in the DB). If you try to delete a book 
-  // from the bestsellers collection, the server will crash. This 
+  // an API call (not stored in the DB). If you try to delete a book
+  // from the bestsellers collection, the server will crash. This
   // if statement prevents that from happening.
   if (req.body.collection === "bestsellers") {
     console.log("Cant delete from bestsellers");
