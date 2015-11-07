@@ -5,17 +5,17 @@
     <div class="modal-body">
         <div class="form-group">
             <label>About you:</label>
-            <textarea type="text" name="about" rows="5" class="form-control" ng-model="user.about" ng-minlength="10" ng-maxlength="500" required></textarea>
-            <p ng-show="form.userForm.about.$error.minlength" class="help-block">Tell us some more!</p>
-            <p ng-show="form.userForm.about.$error.maxlength" class="help-block">Max limit: 500</p>
+            <textarea type="text" name="about_me" rows="5" class="form-control" ng-model="user.about_me" ng-minlength="10" ng-maxlength="500" required></textarea>
+            <p ng-show="form.userForm.about_me.$error.minlength" class="help-block">Tell us some more!</p>
+            <p ng-show="form.userForm.about_me.$error.maxlength" class="help-block">Max limit: 255</p>
             <label>Currently Living In:</label>
-            <input type="text" name="location" class="form-control" ng-model="user.location" ng-minlength="5" ng-maxlength="25">
+            <input type="text" name="location" class="form-control" ng-model="user.location" ng-maxlength="25">
             <label>I am ______ years old:</label>
             <input type="text" name="age" class="form-control" ng-model="user.age">
             <label>My Favorite Book Is:</label>
-            <input type="text" name="favBook" class="form-control" ng-model="user.favBook" ng-maxlength="25">
+            <input type="text" name="favBook" class="form-control" ng-model="user.fav_book" ng-maxlength="25">
             <label>My Favorite Author Is:</label>
-            <input type="text" name="author" class="form-control" ng-model="user.favAuthor" ng-maxlength="25">
+            <input type="text" name="author" class="form-control" ng-model="user.fav_author" ng-maxlength="25">
         </div>
         <div class="modal-footer">
             <button type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
