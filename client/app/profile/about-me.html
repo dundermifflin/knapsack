@@ -1,16 +1,24 @@
 <div class="modal-header">
-  <h3>Tell us your story!</h3>
+    <h3>Tell us your story!</h3>
 </div>
 <form name="form.userForm" ng-submit="submitAbout()" novalidate>
-  <div class="modal-body">
-    <div class="form-group">
-      <label>About you:</label>
-      <textarea type="text" name="about" rows="5"class="form-control" ng-model="user.about" ng-minlength="10" ng-maxlength="500" required></textarea>
-      <p ng-show="form.userForm.about.$error.minlength" class="help-block">Tell us some more!</p>
-      <p ng-show="form.userForm.about.$error.maxlength" class="help-block">Max limit: 500</p>
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
-      <button class="cancel-small" ng-click="cancel()">Cancel</button>
-    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>About you:</label>
+            <textarea type="text" name="about" rows="5" class="form-control" ng-model="user.about" ng-minlength="10" ng-maxlength="500" required></textarea>
+            <p ng-show="form.userForm.about.$error.minlength" class="help-block">Tell us some more!</p>
+            <p ng-show="form.userForm.about.$error.maxlength" class="help-block">Max limit: 500</p>
+            <label>Currently Living In:</label>
+            <input type="text" name="location" class="form-control" ng-model="user.location" ng-minlength="5" ng-maxlength="25">
+            <label>I am ______ years old:</label>
+            <input type="text" name="age" class="form-control" ng-model="user.age">
+            <label>My Favorite Book Is:</label>
+            <input type="text" name="favBook" class="form-control" ng-model="user.favBook" ng-maxlength="25">
+            <label>My Favorite Author Is:</label>
+            <input type="text" name="author" class="form-control" ng-model="user.favAuthor" ng-maxlength="25">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
+            <button class="cancel-small" ng-click="cancel()">Cancel</button>
+        </div>
 </form>
