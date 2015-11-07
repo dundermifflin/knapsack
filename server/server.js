@@ -45,6 +45,7 @@ var User = db.import(path.join(__dirname, "../models/Users"));
 var Collection = db.import(path.join(__dirname, "../models/Collections.js"));
 var Book = db.import(path.join(__dirname, "../models/Books.js"));
 var Rating = db.import(path.join(__dirname, "../models/Ratings.js"));
+var Friend = db.import(path.join(__dirname, "../models/Friends.js"));
 
 //Relationships :
 //1.User can have many Collections.
@@ -477,9 +478,18 @@ app.post("api/addFriend", function(req, res){
     where: {
       user_name: req.query.user_name
     }
+  }).then(function(user){
+    User.findOne({
+      where: {
+        //friend name
+        user_name: req.query.friend_name
+      }
+    }).then(function(friend){
+      user.addUser(friend)
+    })
   })
   
-})
+});
 
 //GET request to get NYTimes bestsellers for default bestsellers list
 
