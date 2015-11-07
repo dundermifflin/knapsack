@@ -1,7 +1,41 @@
 angular.module('knapsack.profile', ["ui.router"])
 
-.controller('ProfileController', ['$scope', '$uibModal', function($scope, $uibModal) {
-  $scope.user={};
+.controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
+  $scope.user = {}
+ 
+  $scope.loadUser = function() {
+    Profile.loadUser()
+      .then(function(user) {
+        $scope.user = user;
+      })
+  }
+
+
+  $scope.loadFriends = function() {
+    Contents.getFriends()
+      .then(function(friends) {
+        console.log('FRIENDS:', friends)
+        $scope.friends = friends;
+      });
+  };
+
+  $scope.getUsers = function() {
+    console.log('in get users')
+    Contents.getUsers()
+      .then(function(users) {
+        console.log('USERS:', users)
+        $scope.users = users
+      })
+  }
+
+  $scope.processFriend = function(friend) {
+    Profile.processFriend(friend).then(function(resp) {
+      $state.go('friend', {
+        user: JSON.stringify(resp), 
+        location: false
+      })
+    })
+  }
 
   $scope.aboutMeOpen = function() {
     var modalInstance = $uibModal.open({
@@ -30,38 +64,39 @@ angular.module('knapsack.profile', ["ui.router"])
       }
     });
   };
-
+  $scope.loadUser();
+  $scope.loadFriends();
 }])
 
-
-var AboutMeController = function($scope, userForm, Profile) {
+var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
   $scope.form = {};
-  $scope.submitForm = function() {
-      console.log('USERFORM?', $scope.form)
+  $scope.submitAbout = function() {
+    console.log('USERFORM?', $scope.user)
     if ($scope.form.userForm.$valid) {
-      Profile.addAbout(userAbout);
+      Profile.addAbout($scope.user.about);
     } else {
       console.log("error submitting form")
     }
+    $modalInstance.dismiss("submit");
   }
+  $scope.cancel = function() {
+    $modalInstance.dismiss("cancel");
+  };
 }
 
-var FactsController = function($scope, userForm, Profile) {
+var FactsController = function($scope, userForm, Profile, $modalInstance) {
   $scope.form = {};
-  // var facts = {
-  //   location: $scope.form.user.location,
-  //   age: $scope.form.user.age,
-  //   favBook: $scope.form.user.favBook,
-  //   favAuthor: $scope.form.user.favAuthor
-  // };
-
-  $scope.submitForm= function(){
-  if ($scope.form.userForm.$valid) {
-    Profile.addFacts(JSON.stringify($scope.user));
-  } else {
-    console.log('error submitting userFacts')
+  $scope.submitFacts = function() {
+    if ($scope.form.userForm.$valid) {
+      Profile.addFacts($scope.user);
+    } else {
+      console.log('error submitting userFacts')
+    }
+    $modalInstance.dismiss("submit");
   }
-}
+  $scope.cancel = function() {
+    $modalInstance.dismiss("cancel");
+  };
 }
 
 //need about me controller
