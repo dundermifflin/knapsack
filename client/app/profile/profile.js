@@ -13,6 +13,7 @@ angular.module('knapsack.profile', ["ui.router"])
   $scope.loadFriends = function() {
     Contents.getFriends()
       .then(function(users) {
+        console.log('FRIENDS:', users)
         $scope.friends = users;
       });
   };

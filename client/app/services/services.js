@@ -77,11 +77,11 @@ angular.module("knapsack.services", [])
 
 .factory("Profile", function($http) {
 
-    var loadUser = function(){
+    var loadUser = function() {
       return $http({
-        method:'GET', 
+        method: 'GET',
         url: "api/loadUser"
-      }).then(function(resp){
+      }).then(function(resp) {
         return resp.data
       })
     }
@@ -130,7 +130,7 @@ angular.module("knapsack.services", [])
     return {
       addAbout: addAbout,
       addFacts: addFacts,
-      processFriend: processFriend, 
+      processFriend: processFriend,
       loadUser: loadUser
     }
   })
@@ -296,10 +296,12 @@ angular.module("knapsack.services", [])
         });
     };
 
-    var getFriends= function(){
+    var getFriends = function() {
       return $http({
-        method:"GET", 
+        method: "GET",
         url: "/api/friends"
+      }).then(function(resp) {
+        return resp.data
       })
     }
 
@@ -309,6 +311,8 @@ angular.module("knapsack.services", [])
       removeBook: removeBook,
       getNytimes: getNytimes,
       getUsers: getUsers,
+      getFriends,
+      getFriends,
       shareBook: shareBook
     };
 

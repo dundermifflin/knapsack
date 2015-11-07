@@ -443,13 +443,13 @@ app.post("api/addFacts", function(req, res) {
 
 //Send friend data back to front-end
 
-app.post("api/processFriend", function(req, res){
+app.post("api/processFriend", function(req, res) {
   console.log("in server processFriend")
   User.findOne({
     where: {
       user_name: req.query.username
     }
-  }).then(function(user){
+  }).then(function(user) {
     res.send(user.attributes)
   });
 });
@@ -481,29 +481,32 @@ app.get("/api/getUsers", function(req, res) {
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
-}
+    });
+  })
+});
+
 
 app.get("/api/friends", function(req, res) {
   console.log("in server GET friends")
   User.findOne()
-  .then(function(user) {
-    friends = _.map(user.friends, function(friend) {
-      return [friend.user_name, friend.photo_url];
+    .then(function(user) {
+      friends = _.map(user.friends, function(friend) {
+        return [friend.user_name, friend.photo_url];
+      });
+      res.send(friends);
     });
-    res.send(friends);
-  });
 });
 
 //GET request to load all properties of current user
 
-app.get("api/loadUser", function(req, res) {
+app.get("/api/loadUser", function(req, res) {
   console.log("in server loadUser")
   User.findOne({
     user_name: req.session.user.user_name
-  }).then(function(user){
+  }).then(function(user) {
     res.send(user);
   })
-})
+});
 
 /************************************************************/
 // HANDLE WILDCARD ROUTES - IF ALL OTHER ROUTES FAIL
