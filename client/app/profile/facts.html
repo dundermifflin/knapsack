@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3>Help us read between the lines.</h3>
 </div>
-<form name="form.userForm" ng-submit="submitFacts()" ng-controller='ProfileController' ng-model="user.userForm" novalidate>
+<form name="form.userForm" ng-submit="submitFacts()" ng-model="user.userForm" novalidate>
     <div class="modal-body">
         <div class="form-group">
             <label>Currently Living In:</label>
@@ -11,10 +11,10 @@
             <label>My Favorite Book Is:</label>
             <input type="text" name="favBook" class="form-control" ng-model="user.favBook" ng-maxlength="25">
             <label>My Favorite Author Is:</label>
-            <input type="text" name="author" class="form-control" ng-model="user.author" ng-maxlength="25">
+            <input type="text" name="author" class="form-control" ng-model="user.favAuthor" ng-maxlength="25">
         </div>
         <div class="modal-footer">
-            <button href="/" type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
+            <button type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
             <button class="cancel-small" ng-click="cancel()">Cancel</button>
         </div>
     </div>

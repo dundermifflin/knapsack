@@ -22,7 +22,7 @@ angular.module("knapsack", [
     $scope.$on(AUTH_EVENTS.loginFailed, $location.path('/landing'))
   })
   .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouteProvider) {
-    $urlRouteProvider.otherwise("/");
+    // $urlRouteProvider.otherwise("/");
 
 
     $stateProvider
@@ -50,6 +50,23 @@ angular.module("knapsack", [
             controller: "SidebarController"
           },
           "header@dashboard": {
+            templateUrl: "app/auth/header.html",
+            controller: "authController"
+          }
+        }
+      })
+      .state("friend", {
+        url:"/friend", 
+        views:{
+          "main": {
+            templateUrl: "app/profile/friendView.html",
+            controller: "ProfileController"
+          },
+          "friendsearch@friend": {
+            templateUrl: "app/dashboard/friendsearch.html",
+            controller: "DropdownCtrl"
+          },
+          "header@friend": {
             templateUrl: "app/auth/header.html",
             controller: "authController"
           }
