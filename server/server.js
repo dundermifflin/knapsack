@@ -473,6 +473,11 @@ app.post("/processFriend", function(req, res) {
 
 app.post("api/addFriend", function(req, res){
   console.log('in addFriend mothafucka')
+  User.findOne({
+    where: {
+      user_name: req.query.user_name
+    }
+  })
   
 })
 
