@@ -436,6 +436,35 @@ app.post("/api/collection/share", function(req, res) {
   });
 });
 
+//POST request to RATE book
+//Unit Test : Pass (11/2/2015)
+
+app.post("/api/rateBook", function(req, res) {
+  console.log("req.body.book: ", req.body.book);
+  console.log("req.body.rating: ", req.body.rating);
+
+  // User.findOne({
+  //   where: {
+  //     user_name: req.body.user
+  //   }
+  // }).then(function(user) {
+  //   var user_id = user.id;
+  //   Collection.findOne({
+  //     where: {
+  //       collection: "recommended",
+  //       name: user_id
+  //     }
+  //   }).then(function(collection) {
+  //     Book.create(req.body.book)
+  //       .then(function(book) {
+  //         collection.addBook(book);
+  //         res.send("succesfully shared book");
+  //       });
+  //   });
+  // });
+});
+
+
 //POST request to add about me section to existing user
 
 app.post("/addAbout", function(req, res) {
@@ -502,7 +531,7 @@ app.get("/api/getUsers", function(req, res) {
   })
 });
 
-//this may need to be changed 
+//this may need to be changed
 // app.get("/api/friends", function(req, res) {
 //   console.log("in server GET friends")
 //   User.findOne({

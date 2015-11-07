@@ -97,9 +97,9 @@ angular.module("knapsack.services", [])
           url: "/addAbout",
           params: {
             user_name: name,
-            about_me: user.about_me, 
+            about_me: user.about_me,
             location: user.location,
-            age: user.age, 
+            age: user.age,
             fav_book: user.fav_book,
             fav_author: user.fav_author
           }
@@ -292,6 +292,22 @@ angular.module("knapsack.services", [])
         });
     };
 
+    var rateBook = function(book, rating) {
+      return $http({
+          method: "POST",
+          url: "/api/rateBook",
+          data: JSON.stringify({
+            book: book,
+            rating: rating
+          })
+        })
+        .then(function succesCallback(resp) {
+          snackbar.create("Shared " + Utils.properCaps(book.title) + " with " + Utils.properCaps(user) + "!", 3000);
+          console.log("succesfully shared book to user: " + user);
+        }, function errorCallback(resp) {
+          console.log(resp.status + ": failed sharing book with user: " + user);
+        });
+    };
 
     var getUsers = function() {
       return $http({
@@ -309,7 +325,7 @@ angular.module("knapsack.services", [])
     // var getFriends = function(username) {
     //   return $http({
     //     method: "GET",
-    //     url: "/api/friends", 
+    //     url: "/api/friends",
     //     params:{
     //       name: username
     //     }
@@ -325,7 +341,8 @@ angular.module("knapsack.services", [])
       getNytimes: getNytimes,
       getUsers: getUsers,
       // getFriends: getFriends,
-      shareBook: shareBook
+      shareBook: shareBook,
+      rateBook: rateBook
     };
 
   }])
