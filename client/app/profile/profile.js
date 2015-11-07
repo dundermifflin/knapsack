@@ -2,7 +2,7 @@ angular.module('knapsack.profile', ["ui.router"])
 
 .controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
   $scope.user = {}
- 
+
   $scope.loadUser = function() {
     Profile.loadUser()
       .then(function(user) {
@@ -12,13 +12,13 @@ angular.module('knapsack.profile', ["ui.router"])
   }
 
 
-  $scope.loadFriends = function() {
-    Contents.getFriends($scope.user.user_name)
-      .then(function(friends) {
-        console.log('FRIENDS:', friends)
-        $scope.friends = friends;
-      });
-  };
+  // $scope.loadFriends = function() {
+  //   Contents.getFriends($scope.user.user_name)
+  //     .then(function(friends) {
+  //       console.log('FRIENDS:', friends)
+  //       $scope.friends = friends;
+  //     });
+  // };
 
   $scope.getUsers = function() {
     console.log('in get users')
@@ -30,10 +30,12 @@ angular.module('knapsack.profile', ["ui.router"])
   }
 
   $scope.processFriend = function(friend) {
+    console.log('friend', friend)
     Profile.processFriend(friend).then(function(resp) {
       $state.go('friend', {
-        user: JSON.stringify(resp), 
-        location: false
+        user_name: JSON.stringify(resp)
+      }, {
+        location: true
       })
     })
   }
@@ -73,15 +75,15 @@ angular.module('knapsack.profile', ["ui.router"])
     });
   };
   $scope.loadUser();
-  $scope.loadFriends();
+  // $scope.loadFriends();
 }])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
   $scope.form = {};
   $scope.submitAbout = function() {
-    console.log($scope.user)
+    console.log('USER',$scope.user)
     if ($scope.form.userForm.$valid) {
-      Profile.addAbout($scope.user.user_name, $scope.user.about);
+      Profile.addAbout($scope.user.user_name, $scope.user);
     } else {
       console.log("error submitting form")
     }
@@ -92,20 +94,20 @@ var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
   };
 }
 
-var FactsController = function($scope, userForm, Profile, $modalInstance) {
-  $scope.form = {};
-  $scope.submitFacts = function() {
-    if ($scope.form.userForm.$valid) {
-      Profile.addFacts($scope.user.user_name, $scope.user);
-    } else {
-      console.log('error submitting userFacts')
-    }
-    $modalInstance.dismiss("submit");
-  }
-  $scope.cancel = function() {
-    $modalInstance.dismiss("cancel");
-  };
-}
+// var FactsController = function($scope, userForm, Profile, $modalInstance) {
+//   $scope.form = {};
+//   $scope.submitFacts = function() {
+//     if ($scope.form.userForm.$valid) {
+//       Profile.addFacts($scope.user.user_name, $scope.user);
+//     } else {
+//       console.log('error submitting userFacts')
+//     }
+//     $modalInstance.dismiss("submit");
+//   }
+//   $scope.cancel = function() {
+//     $modalInstance.dismiss("cancel");
+//   };
+// }
 
 //need about me controller
 //need fact controller

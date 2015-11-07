@@ -442,49 +442,29 @@ app.post("/addAbout", function(req, res) {
   console.log("in server addAbout");
   User.findOne({
     where: {
-      user_name: req.query.name
+      user_name: req.query.user_name
     }
   }).then(function(user) {
-    console.log('USERRESULT', user)
+    console.log('user found')
     user.set({
-      about_me: req.query.about
-    })
-// .save().on('success',(function() {
-    //   console.log("succesfully added about me to user")
-    // }));
-  });
-});
-
-
-//POST request to updat user_facts attributes
-
-app.post("api/addFacts", function(req, res) {
-  console.log("in server addFacts")
-  User.findOne({
-    where: {
-      user_name: req.query.name
-    }
-  }).then(function(user) {
-    user.set({
+      about_me: req.query.about_me,
       location: req.query.location,
-      favBook: req.query.favBook,
-      favAuthor: req.query.favAuthor,
-      age: req.query.age
-    }).success(function() {
-      console.log("succesfully added facts to user")
-    });
-  });
+      age: req.query.age,
+      fav_book: req.query.fav_book,
+      fav_author: req.query.fav_author,
+    }).save();
+  })
 });
 
-//Send friend data back to front-end
-
-app.post("api/processFriend", function(req, res) {
+app.post("/processFriend", function(req, res) {
   console.log("in server processFriend")
+  console.log('username', req.query.user_name)
   User.findOne({
     where: {
-      user_name: req.query.name
+      user_name: req.query.user_name
     }
   }).then(function(user) {
+    console.log('PROCESSUSER:', user.attributes)
     res.send(user.attributes)
   });
 });
@@ -530,42 +510,42 @@ app.get("/api/getUsers", function(req, res) {
 });
 
 //this may need to be changed 
-app.get("/api/friends", function(req, res) {
-      console.log("in server GET friends")
-      User.findOne({
-          where: {
-            user_name: req.query.id
-          }
-          })
-        .then(function(user) {
-          friends = _.map(user.friends, function(friend) {
-            return [friend.user_name, friend.photo_url];
-          });
-          res.send(friends);
-        });
-      });
+// app.get("/api/friends", function(req, res) {
+//   console.log("in server GET friends")
+//   User.findOne({
+//       where: {
+//         user_name: req.query.id
+//       }
+//     })
+//     .then(function(user) {
+//       friends = _.map(user.friends, function(friend) {
+//         return [friend.user_name, friend.photo_url];
+//       });
+//       res.send(friends);
+//     });
+// });
 
-    //GET request to load all properties of current user
+//GET request to load all properties of current user
 
-    app.get("/api/loadUser", function(req, res) {
-      console.log("in server loadUser")
-      console.log('SESSION', req.session)
-      User.findOne({
-        where: {
-          user_name: req.session.user.user_name
-        }
-      }).then(function(user) {
-        console.log('result', user)
-        res.send(user);
-      })
-    });
+app.get("/api/loadUser", function(req, res) {
+  console.log("in server loadUser")
+  console.log('SESSION', req.session)
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user) {
+    console.log('result', user)
+    res.send(user);
+  })
+});
 
-    /************************************************************/
-    // HANDLE WILDCARD ROUTES - IF ALL OTHER ROUTES FAIL
-    /************************************************************/
+/************************************************************/
+// HANDLE WILDCARD ROUTES - IF ALL OTHER ROUTES FAIL
+/************************************************************/
 
-    /************************************************************/
-    // START THE SERVER
-    /************************************************************/
-    app.listen(port); console.log("Knapsack is listening on port " + port);
-
+/************************************************************/
+// START THE SERVER
+/************************************************************/
+app.listen(port);
+console.log("Knapsack is listening on port " + port);
