@@ -22,9 +22,32 @@
         <div class="col-md-6" id="midColProfile">
             <h3> Hi, {{user.user_name}}. </h3>
             <a ng-click="aboutMeOpen()" id="about-me-button">Edit Your Profile</a>
-            <div>
+            <!-- <div>
                 {{user.about_me}}
+            </div> -->
+
+            <div class="row">
+                <table st-safe-src="bookCollection" st-table="displayedCollection" class="table book-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Shared by</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="book in displayedCollection">
+                        <td> {{book.title | lowercase}} </td>
+                        <td> {{book.author}} </td>
+                        <td> </td>
+                    </tr>
+                </table>
+
+
             </div>
+
+            
+
+
         </div>
         <div class="col-md-3" id="rightColProfile">
             <h3>Discover</h3>

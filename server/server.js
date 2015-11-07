@@ -423,7 +423,7 @@ app.post("/api/collection/share", function(req, res) {
     var user_id = user.id;
     Collection.findOne({
       where: {
-        collection: "recommended",
+        collection: "recommended",  // change to pending
         name: user_id
       }
     }).then(function(collection) {

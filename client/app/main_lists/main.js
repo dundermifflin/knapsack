@@ -6,29 +6,29 @@ angular.module("knapsack.main", [])
     };
 
     $scope.currentCollection = "";
-    if ($location.url().split("/")[2]){
-      $scope.currentCollection = $location.url().split("/")[2].replace("%20"," "); 
+    if ($location.url().split("/")[2]) {
+      $scope.currentCollection = $location.url().split("/")[2].replace("%20", " ");
       // in the database, we don't want spaces in our collection names, so we replace the space in the url.
-      var dbCollection = $location.url().split("/")[2].replace("%20"," "); 
+      var dbCollection = $location.url().split("/")[2].replace("%20", " ");
     }
-    
+
 
     $scope.searchBooks = function(val) {
       return $http.get('https://www.googleapis.com/books/v1/volumes', {
         params: {
           q: val,
           sensor: false,
-          key: "AIzaSyAKGN-KPY2u2PEPogviuxh3nyoTsYkYt9Q", // Insert Google API key here
+          key: "AIzaSyDFoDLRgBHGFzXIOXCT3CiE4wKEVCicgWI", // Insert Google API key here
           printType: "books"
         }
-      }).then(function(response){
-        return response.data.items.map(function(item){
+      }).then(function(response) {
+        return response.data.items.map(function(item) {
           var data = {
             /* There are often multiple authors for books. This comes from the Google Books API via an array.
             For the sake of time, we are using this function to limit the amount of authors to the first result.
             In the future, this would be good to flush out to allow for storing multiple authors in the DB
             */
-            author: item.volumeInfo.authors === undefined? "" : item.volumeInfo.authors[0],
+            author: item.volumeInfo.authors === undefined ? "" : item.volumeInfo.authors[0],
             title: item.volumeInfo.title
           };
           return data;
@@ -43,7 +43,7 @@ angular.module("knapsack.main", [])
       });
     };
 
-    
+
 
     $scope.addBook = function(book) {
       Contents.addBook(dbCollection, book)
@@ -82,20 +82,14 @@ angular.module("knapsack.main", [])
   }])
 
 .controller("DropdownCtrl", ["$scope", "Contents", function($scope, Contents) {
-  $scope.loadUsers = function() {
-    Contents.getUsers()
+  $scope.loadFriends = function() {
+    console.log('loading friends')
+    Contents.getFriends()
       .then(function(users) {
-        $scope.users = users;
+        $scope.friends = users;
+        console.log(users)
       });
   };
-
-  $scope.getFriends= function(){
-    Contents.getFriends()
-    .then(function(friends){
-      $scope.friends=friends;
-    });
-  }
-
-  $scope.getFriends();
+  $scope.loadFriends();
 
 }]);
