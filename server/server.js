@@ -489,6 +489,13 @@ app.post("api/processFriend", function(req, res) {
   });
 });
 
+//store friendships in db
+
+app.post("api/addFriend", function(req, res){
+  console.log('in addFriend mothafucka')
+  
+})
+
 //GET request to get NYTimes bestsellers for default bestsellers list
 
 app.get("/api/collection/nytimes", function(req, res) {

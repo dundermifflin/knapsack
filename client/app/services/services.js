@@ -103,6 +103,20 @@ angular.module("knapsack.services", [])
         // })
     }
 
+    var addFriend = function(currentUser, friend) {
+      return $http({
+        method: 'POST',
+        url: "/addFriend",
+        params: {
+          currentUser: currentUser,
+          friend: friend
+        }
+      }).then(function(resp){
+        console.log('response from add friend: ', resp.data) //possibly change this to resp.header
+        return resp.data
+      })
+    }
+
     var processFriend = function(friend) {
       return $http({
         method: 'POST',

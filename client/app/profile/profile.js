@@ -38,6 +38,13 @@ angular.module('knapsack.profile', ["ui.router"])
     })
   }
 
+  $scope.addFriend = function(currentUser, friend) {
+    console.log($scope.user)
+    Profile.addFriend(currentUser, friend).then(function(resp) {
+      //add friend to db
+    })
+  }
+
   $scope.aboutMeOpen = function() {
     var modalInstance = $uibModal.open({
       templateUrl: "app/profile/about-me.html",
