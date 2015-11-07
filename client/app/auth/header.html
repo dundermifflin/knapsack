@@ -1,17 +1,19 @@
 <header>
-  <nav id="main-nav"  ng-controller="authController">
-    <div class="container-fluid">
-      <!-- site logo -->
-      <div class="navbar-header">
-        <a href="#/collection/bestsellers" class="navbar-brand">
+    <nav id="main-nav" ng-controller="authController">
+        <div class="container-fluid">
+            <!-- site logo -->
+            <div class="navbar-header">
+                <a href="#/collection/bestsellers" class="navbar-brand">
         knapsack
       </a>
-      </div>
-      <!-- loading the modal templates to be ready for initial views -->
-      <!-- <div ng-include="'app/auth/login-modal.html'"></div> -->
-      <ul class="nav navbar-nav navbar-right">
-        <li><a id="logout-button" href="#" ng-click="logOut()">log out</a></li>
-      </ul>
-    </div>
-  </nav>
+            </div>
+            <!-- loading the modal templates to be ready for initial views -->
+            <!-- <div ng-include="'app/auth/login-modal.html'"></div> -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="logout-button" href="#/profile">home</a></li>
+                <li><a id="logout-button" href="#/collection/bestsellers">share</a></li>
+                <li><a id="logout-button" href="#" ng-click="logOut()">log out</a></li>
+            </ul>
+        </div>
+    </nav>
 </header>
