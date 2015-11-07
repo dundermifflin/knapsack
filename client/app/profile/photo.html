@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3>Please insert Profile Picture URL.</h3>
+</div>
+<form name="form.userForm" ng-submit="addPhoto()" ng-model="user.userForm" novalidate>
+    <div class="modal-body">
+        <div class="form-group">
+            <label>Enter URL Here:</label>
+            <input type="text" name="photoURL" class="form-control" ng-model="user.photo_url">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="sign-small" ng-disabled="form.userForm.$invalid">Submit</button>
+            <button class="cancel-small" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</form>

@@ -75,7 +75,11 @@ angular.module("knapsack.services", [])
 
   }])
 
-.factory("Profile", function($http) {
+.factory("Profile", function($http, $state) {
+
+    var friendDisplay={
+      data:{}
+    }
 
     var loadUser = function() {
       console.log('in service load user')
@@ -97,9 +101,9 @@ angular.module("knapsack.services", [])
           url: "/addAbout",
           params: {
             user_name: name,
-            about_me: user.about_me, 
+            about_me: user.about_me,
             location: user.location,
-            age: user.age, 
+            age: user.age,
             fav_book: user.fav_book,
             fav_author: user.fav_author
           }
@@ -132,30 +136,31 @@ angular.module("knapsack.services", [])
           user_name: friend
         }
       }).then(function(resp) {
-        console.log('processFriendResponse', resp.data)
+        console.log('PROCESS FRIEND SERVICES', resp.data )
+        friendDisplay.data = resp.data
+        console.log('friendDisplayservices', friendDisplay)
         return resp.data
       })
     }
 
-    // var addFacts = function(name, user) {
-    //   console.log('in addFact service')
-    //   return $http({
-    //     method: 'POST',
-    //     url: 'api/addFacts',
-    //     params: {
-    //       name: name,
-    //       location: user.location,
-    //       favBook: user.favBook,
-    //       favAuthor: user.favAuthor,
-    //       age: user.age
-    //     }
-    //   })
-    // }
+    var addPhoto = function(user) {
+      console.log('in addFact service')
+      return $http({
+        method: 'POST',
+        url: '/addPhoto',
+        params: {
+          user_name: user.user_name,
+          photo_url: user.photo_url,
+        }
+      })
+    }
 
     return {
+      friendDisplay: friendDisplay,
       addAbout: addAbout,
       processFriend: processFriend,
-      loadUser: loadUser
+      loadUser: loadUser,
+      addPhoto: addPhoto
     }
   })
   .factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {
