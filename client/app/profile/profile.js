@@ -65,14 +65,8 @@ angular.module('knapsack.profile', ["ui.router"])
         };
         $scope.loadUser();
         // $scope.loadFriends();
-      }])
 
-  $scope.addFriend = function(currentUser, friend) {
-    console.log($scope.user)
-    Profile.addFriend(currentUser, friend).then(function(resp) {
-      //add friend to db
-    })
-  }
+      }])
 
     var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
       $scope.form = {};

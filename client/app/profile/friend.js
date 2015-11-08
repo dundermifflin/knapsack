@@ -22,4 +22,10 @@ angular.module('knapsack.friend', ["ui.router"])
       })
     }
 
+    $scope.addFriend = function(friend_name){
+      Profile.addFriend(friend_name).then(function(resp){
+        console.log("hello")
+      })
+    }
+
   }])

@@ -113,16 +113,15 @@ angular.module("knapsack.services", [])
         // })
     }
 
-    var addFriend = function(currentUser, friend) {
+    var addFriend = function(friend_name) {
+      console.log("inside addFriend")
       return $http({
         method: 'POST',
-        url: "/addFriend",
+        url: "api/addFriend",
         params: {
-          currentUser: currentUser,
-          friend: friend
+          friend_name: friend_name
         }
       }).then(function(resp){
-        console.log('response from add friend: ', resp.data) //possibly change this to resp.header
         return resp.data
       })
     }
@@ -160,7 +159,8 @@ angular.module("knapsack.services", [])
       addAbout: addAbout,
       processFriend: processFriend,
       loadUser: loadUser,
-      addPhoto: addPhoto
+      addPhoto: addPhoto,
+      addFriend: addFriend
     }
   })
   .factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {

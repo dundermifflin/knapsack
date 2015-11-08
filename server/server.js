@@ -485,20 +485,26 @@ app.post("/processFriend", function(req, res) {
 
 //store friendships in db
 
-app.post("api/addFriend", function(req, res){
-  console.log('in addFriend mothafucka')
+app.post("/api/addFriend", function(req, res){
   User.findOne({
     where: {
-      user_name: req.query.user_name
+      user_name: req.session.user.user_name
     }
   }).then(function(user){
+    var userId= user.id
     User.findOne({
       where: {
         //friend name
         user_name: req.query.friend_name
       }
     }).then(function(friend){
-      user.addUser(friend)
+      var friendId = friend.id
+      Friend.create({
+        user_id: userId,
+        friend_id: friendId
+      }).then(function(friendship){
+        res.send("we da best")
+      })
     })
   })
   

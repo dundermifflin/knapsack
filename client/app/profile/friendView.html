@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-6" id="leftColProfile">
             <h3> Hi, I'm {{user.user_name}}. </h3>
-            <li><a id="logout-button" href="#" ng-click="addFriend()">Add Friend</a></li>
+            <li><a id="logout-button" href="#" ng-click="addFriend(user.user_name)">Add Friend {{user.user}}</a></li>
             <div>
                 {{user.about_me}}
             </div>
