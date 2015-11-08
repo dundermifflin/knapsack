@@ -7,6 +7,7 @@ angular.module("knapsack", [
     "knapsack.sidebar",
     "knapsack.auth",
     "angular.snackbar",
+   "knapsack.friend",
     "knapsack.profile"
   ])
   .controller('AppController', function($scope, $location, Auth, AUTH_EVENTS) {
@@ -56,11 +57,11 @@ angular.module("knapsack", [
         }
       })
       .state("friend", {
-        url:"/friend", 
+        url:"/friend:user'", 
         views:{
           "main": {
             templateUrl: "app/profile/friendView.html",
-            controller: "ProfileController"
+            controller: "FriendController", 
           },
           "friendsearch@friend": {
             templateUrl: "app/dashboard/friendsearch.html",
