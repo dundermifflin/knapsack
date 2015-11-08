@@ -12,6 +12,14 @@ angular.module('knapsack.profile', ["ui.router"])
       }
 
 
+  $scope.getPendingBooks = function() {
+    Contents.getBooks("pending")
+        .then(function(books) {
+          $scope.pending = books;
+          $scope.pendingCollection = [].concat(books);
+        });
+    }
+
       // $scope.loadFriends = function() {
       //   Contents.getFriends($scope.user.user_name)
       //     .then(function(friends) {
@@ -64,6 +72,7 @@ angular.module('knapsack.profile', ["ui.router"])
           });
         };
         $scope.loadUser();
+        $scope.getPendingBooks();
         // $scope.loadFriends();
       }])
 
@@ -93,10 +102,26 @@ angular.module('knapsack.profile', ["ui.router"])
         }
         $modalInstance.dismiss("submit");
       }
+
+    };
+
+  // $scope.loadUser();
+  // $scope.loadFriends();
+
+var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
+  $scope.form = {};
+  $scope.submitAbout = function() {
+    console.log('USER',$scope.user)
+    if ($scope.form.userForm.$valid) {
+      Profile.addAbout($scope.user.user_name, $scope.user);
+    } else {
+      console.log("error submitting form")
       $scope.cancel = function() {
         $modalInstance.dismiss("cancel");
       };
     }
+  }
+};
 
     //need about me controller
     //need fact controller
