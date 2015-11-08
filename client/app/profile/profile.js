@@ -14,6 +14,7 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
   }
 
   $scope.getPendingBooks = function() {
+    console.log('in pending controller')
     Contents.getBooks("pending")
       .then(function(books) {
         $scope.pending = books;

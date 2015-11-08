@@ -32,10 +32,16 @@ need some extra modifications
         width: 71%
 }*/
 
+
 body {
     width: 100%;
     height: 600px;
     font-family: 'Roboto', sans-serif;
+}
+
+#twitter{
+    max-height: 100%;
+    overflow: scroll;
 }
 
 .profile-container {
