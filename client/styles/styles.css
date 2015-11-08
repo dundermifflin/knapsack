@@ -6,20 +6,23 @@ li {
     text-decoration: none;
 }
 
-#fileUpload{
+#fileUpload {
     width: 20%;
     margin-left: 45%;
     margin-right: 50%;
 }
-#tweets{
+
+#tweets {
     margin-left: 70%;
-    margin-right:50%;
+    margin-right: 50%;
 }
 
-.timeline.stream{
+.timeline.stream {
     margin-left: 50%;
     margin-right: 50%;
 }
+
+
 /*
 if we want the scroll through feature this might
 need some extra modifications
@@ -32,14 +35,13 @@ need some extra modifications
         width: 71%
 }*/
 
-
 body {
     width: 100%;
     height: 600px;
     font-family: 'Roboto', sans-serif;
 }
 
-#twitter{
+#twitter {
     max-height: 100%;
     overflow: scroll;
 }
@@ -133,6 +135,23 @@ i {
     color: #4A4A4A;
     padding: 6px 36px;
     text-decoration: none;
+    margin-left: 5px;
+}
+
+#add-friend {
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+    border: 3px solid #B8E986;
+    display: inline-block;
+    cursor: pointer;
+    /*font-family: 'Roboto', sans-serif;*/
+    font-weight: 300;
+    font-size: 15px;
+    color: #4A4A4A;
+    padding: 6px 20px;
+    text-decoration: none;
+    margin-bottom: 20px;
 }
 
 a.navbar-brand {
