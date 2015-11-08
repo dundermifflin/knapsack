@@ -7,33 +7,13 @@ var db = require("../config/database.js"); // connect to database
 
 var path = require("path");
 var _ = require('underscore');
-var Twit = require('Twit');
+// var Twit = require('Twit');
 var bcrypt = require("bcrypt-nodejs"); // hashing passwords
 var Promise = require("bluebird"); // for promisification
 var app = express();
 var port = process.env.PORT || 3000;
 var ip = "127.0.0.1";
 // var io = require('socket.io')(app);
-
-/*************/
-//SOCKETIO//
-// var tweet = new Twit({
-//   consumer_key: 'aeMWs2jDOaAiodglA2KxIZB5h',
-//   consumer_secret: 'okCtyrQDPQFzesnFgdi0UlANzzh8GWRhhQ786oaKOHebCHQJNh',
-//   access_token: '4020597793-ZHaqgUns6LCzXqezF3KOwr4fIEmYGyyEtvZgaXr',
-//   access_token_secret: 'AUu3HeTKjUgqkiPlbOtZY4aiRG6FQAqY98PuyVkMXzs7m'
-// })
-
-// var stream = tweet.stream('statuses/filter', {
-//   track: 'favorite book'
-// })
-
-// stream.on('connection', function(tweet) {
-// console.log(tweet)
-// io.sockets.emit('stream', tweet);
-
-// })
-
 
 /************************************************************/
 // Initialize Database

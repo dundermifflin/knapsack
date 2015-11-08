@@ -11,7 +11,15 @@ li {
     margin-left: 45%;
     margin-right: 50%;
 }
+#tweets{
+    margin-left: 70%;
+    margin-right:50%;
+}
 
+.timeline.stream{
+    margin-left: 50%;
+    margin-right: 50%;
+}
 /*
 if we want the scroll through feature this might
 need some extra modifications
