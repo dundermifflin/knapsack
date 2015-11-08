@@ -461,6 +461,19 @@ app.post("/addAbout", function(req, res) {
   })
 });
 
+app.post('/addPhoto', function(req,res){
+  console.log('in server addPhoto');
+  User.findOne({
+    where:{
+      user_name: req.query.user_name
+    }
+  }).then(function(user){
+    user.set({
+      photo_url: req.query.photo_url
+    }).save();
+  })
+})
+
 app.post("/processFriend", function(req, res) {
   console.log("in server processFriend")
   console.log('username', req.query.user_name)
@@ -469,8 +482,8 @@ app.post("/processFriend", function(req, res) {
       user_name: req.query.user_name
     }
   }).then(function(user) {
-    console.log('PROCESSUSER:', user.attributes)
-    res.send(user.attributes)
+    console.log('PROCESSUSER:', user.dataValues)
+    res.send(user.dataValues)
   });
 });
 
