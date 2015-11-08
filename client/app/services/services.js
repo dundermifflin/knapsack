@@ -275,6 +275,7 @@ angular.module("knapsack.services", [])
     };
 
     var shareBook = function(collection, book, user) {
+      console.log('share book SERVICES')
       return $http({
           method: "POST",
           url: "/api/collection/share",

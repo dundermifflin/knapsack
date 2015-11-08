@@ -30,14 +30,16 @@
                         <tr>
                             <th>Title</th>
                             <th>Author</th>
-                            <th>Shared by</th>
+                            <th>Shared By</th>
                         </tr>
                     </thead>
-                    <tr ng-repeat="book in pending">
-                        <td> {{book.title | lowercase}} </td>
-                        <td> {{book.author}} </td>
-                        <td> </td>
-                    </tr>
+                    <tbody>
+                        <tr ng-repeat="book in pending">
+                            <td> {{book.title | lowercase}} </td>
+                            <td> {{book.author}} </td>
+                            <td> </td>
+                        </tr>
+                    </tbody>
                 </table>
 
             </div>

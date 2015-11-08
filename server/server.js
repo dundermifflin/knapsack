@@ -429,7 +429,7 @@ app.post("/api/collection/share", function(req, res) {
     Collection.findOne({
       where: {
         collection: "pending",  // change to pending
-        name: user_id
+        user_id: user_id
       }
     }).then(function(collection) {
       Book.create(req.body.book)

@@ -76,7 +76,6 @@ angular.module("knapsack.main", [])
         title: book.title,
         author: book.author
       }, user);
-      console.log(book, user);
     };
 
     getBooks();

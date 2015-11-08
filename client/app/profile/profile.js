@@ -11,6 +11,14 @@ angular.module('knapsack.profile', ["ui.router"])
       })
   }
 
+  $scope.getPendingBooks = function() {
+    Contents.getBooks("pending")
+        .then(function(books) {
+          $scope.pending = books;
+          $scope.pendingCollection = [].concat(books);
+        });
+    }
+
 
   // $scope.loadFriends = function() {
   //   Contents.getFriends($scope.user.user_name)
@@ -68,6 +76,7 @@ angular.module('knapsack.profile', ["ui.router"])
     });
   };
   $scope.loadUser();
+  $scope.getPendingBooks();
   // $scope.loadFriends();
 }])
 
