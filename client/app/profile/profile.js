@@ -4,12 +4,21 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
   $scope.user = {}
 
 
+
   $scope.loadUser = function() {
     Profile.loadUser()
       .then(function(user) {
         $scope.user = user;
         console.log('USER', user)
       })
+  }
+
+  $scope.getPendingBooks = function() {
+    Contents.getBooks("pending")
+      .then(function(books) {
+        $scope.pending = books;
+        $scope.pendingCollection = [].concat(books);
+      });
   }
 
 
@@ -36,21 +45,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
       $state.go('friend')
     })
   }
-
-  $scope.aboutMeOpen = function() {
-    var modalInstance = $uibModal.open({
-      templateUrl: "app/profile/about-me.html",
-      controller: AboutMeController,
-      size: "modal-xs",
-      scope: $scope,
-      resolve: {
-        userForm: function() {
-          return $scope.userForm;
-        }
-      }
-    });
-  };
-
   $scope.photoOpen = function() {
     var modalInstance = $uibModal.open({
       templateUrl: "app/profile/photo.html",
@@ -65,7 +59,39 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
     });
   };
   $scope.loadUser();
+  $scope.getPendingBooks();
   // $scope.loadFriends();
+
+$scope.aboutMeOpen = function() {
+  var modalInstance = $uibModal.open({
+    templateUrl: "app/profile/about-me.html",
+    controller: AboutMeController,
+    size: "modal-xs",
+    scope: $scope,
+    resolve: {
+      userForm: function() {
+        return $scope.userForm;
+      }
+    }
+  });
+};
+
+$scope.photoOpen = function() {
+  var modalInstance = $uibModal.open({
+    templateUrl: "app/profile/photo.html",
+    controller: PhotoController,
+    size: "modal-xs",
+    scope: $scope,
+    resolve: {
+      userForm: function() {
+        return $scope.userForm;
+      }
+    }
+  });
+};
+
+$scope.loadUser();
+// $scope.loadFriends();
 }])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
@@ -86,14 +112,16 @@ var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
 
 var PhotoController = function($scope, userForm, Profile, $modalInstance) {
   $scope.form = {};
+
   $scope.addPhoto = function() {
     if ($scope.form.userForm.$valid) {
       Profile.addPhoto($scope.user);
     } else {
-      console.log('error submitting userFacts')
+      console.log('error submitting photo')
     }
     $modalInstance.dismiss("submit");
   }
+
   $scope.cancel = function() {
     $modalInstance.dismiss("cancel");
   };

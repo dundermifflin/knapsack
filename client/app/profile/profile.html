@@ -22,8 +22,26 @@
         <div class="col-md-6" id="midColProfile">
             <h3> Hi, {{user.user_name}}. </h3>
             <a ng-click="aboutMeOpen()" id="about-me-button">Edit Your Profile</a>
-            <div>
-                {{user.about_me}}
+
+            <h4> Pending </h4>
+            <div class="row">
+                <table st-safe-src="bookCollection" st-table="pending" class="table book-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Shared By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="book in pending">
+                            <td> {{book.title | lowercase}} </td>
+                            <td> {{book.author}} </td>
+                            <td> </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
             <div class="col-md-3" id="rightColProfile">

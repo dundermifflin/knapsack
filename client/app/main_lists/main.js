@@ -71,11 +71,11 @@ angular.module("knapsack.main", [])
     };
 
     $scope.shareBook = function(book, user) {
+      console.log('share book mainjs');
       Contents.shareBook(dbCollection, {
         title: book.title,
         author: book.author
       }, user);
-      console.log(book, user);
     };
 
     getBooks();

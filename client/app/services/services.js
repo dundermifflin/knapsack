@@ -280,6 +280,7 @@ angular.module("knapsack.services", [])
     };
 
     var shareBook = function(collection, book, user) {
+      console.log('share book SERVICES')
       return $http({
           method: "POST",
           url: "/api/collection/share",
@@ -304,7 +305,7 @@ angular.module("knapsack.services", [])
           url: "/api/getUsers"
         })
         .then(function succesCallback(resp) {
-          console.log('serviceFriends', resp.data)
+          console.log('serviceFriends', resp.data);
           return resp.data;
         }, function errorCallback(resp) {
           console.log(resp.status + ": failed loading friends");
