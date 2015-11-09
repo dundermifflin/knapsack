@@ -1,7 +1,7 @@
 angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
 
 .controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
-  $scope.user = {}
+  $scope.user = {};
 
   $scope.loadUser = function() {
     Profile.loadUser()
@@ -99,7 +99,6 @@ var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
     if ($scope.form.userForm.$valid) {
       Profile.addAbout($scope.user.user_name, $scope.user);
     } else {
-      console.log("error submitting form")
     }
     $modalInstance.dismiss("submit");
   }
@@ -123,7 +122,7 @@ var PhotoController = function($scope, userForm, Profile, $modalInstance) {
   $scope.cancel = function() {
     $modalInstance.dismiss("cancel");
   };
-}
+};
 
 //need about me controller
 //need fact controller

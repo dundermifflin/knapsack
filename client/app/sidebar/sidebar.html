@@ -1,15 +1,15 @@
 <div id="sidebar" ng-Controller="DropdownCtrl">
   <div>
     <div class="collections">
-      <div class="collection" ng-repeat="collection in data.collections" ng-mouseenter="hover()" ng-mouseleave="hover()">
+      <div class="collection" ng-repeat="collection in data.collections" ng-if="collection != 'pending'" ng-mouseenter="hover()" ng-mouseleave="hover()">
         <a class="book-category" ng-href="#/collection/{{collection}}"> {{collection}}</a>
         <div class="btn-group" uib-dropdown >
           <!-- <button type="button" class="btn btn-sm btn-default" ng-click="loadFriends()" uib-dropdown-toggle> -->
-            <i class="glyphicon glyphicon-share-alt" ng-click="loadFriends()" ng-show="show" uib-dropdown-toggle></i>
+            <i class="glyphicon glyphicon-share-alt" ng-click="getUsers()" ng-show="show" uib-dropdown-toggle></i>
           <!-- </button> -->
           <ul class="uib-dropdown-menu" role="menu">
             <li><input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input></li>
-            <li role="menuitem" ng-click="shareCollection(collection, user)" ng-repeat="user in friends | filter:query">
+            <li role="menuitem" ng-click="shareCollection(collection, user)" ng-repeat="user in users | filter:query">
               <a href="#">{{user}}</a>
             </li>
           </ul>

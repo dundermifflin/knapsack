@@ -269,9 +269,10 @@ app.post("/api/collections/share", function(req, res) {
       user_name: req.session.user.user_name //currently logged in user
     }
   }).then(function(user) {
+    var user_id = user.id;
     Collection.findOne({
       where: {
-        user_id: user.id,
+        user_id: user_id,
         collection: req.body.collection
       }
     }).then(function(collection) {
@@ -281,14 +282,18 @@ app.post("/api/collections/share", function(req, res) {
             user_name: req.body.user //user you are sharing with
           }
         }).then(function(user) {
-          Collection.create({
-            collection: req.body.collection
+          var user_id = user.id;
+          Collection.findOne({
+            where: {
+              user_id: user_id,
+              collection: "pending"
+            }
           }).then(function(collection) {
-            user.addCollection(collection);
             for (var i = 0; i < books.length; i++) {
               Book.create({
                   title: books[i].title,
-                  author: books[i].author
+                  author: books[i].author,
+                  summary: books[i].summary
                 })
                 .then(function(book) {
                   collection.addBook(book);
@@ -324,7 +329,8 @@ app.post("/api/collection/instance", function(req, res) {
           books = _.map(books, function(item) {
             return {
               title: item.title,
-              author: item.author
+              author: item.author,
+              summary: item.summary
             };
           });
           res.send(books);
@@ -352,11 +358,14 @@ app.post("/api/collection", function(req, res) {
         user_id: user_id
       }
     }).then(function(collection) {
-      Book.create(req.body.book)
-        .then(function(book) {
-          collection.addBook(book);
-          res.status(201).send("succesfully added book");
-        });
+      Book.create({
+        title: req.body.book.title,
+        author: req.body.book.author,
+        summary: req.session.user.user_name
+      }).then(function(book) {
+        collection.addBook(book);
+        res.status(201).send("succesfully added book");
+      });
     });
   });
 });
@@ -400,6 +409,7 @@ app.post("/api/collection/delete", function(req, res) {
 //Unit Test : Pass (11/2/2015)
 
 app.post("/api/collection/share", function(req, res) {
+  var sharedBy = req.session.user.user_name;
   User.findOne({
     where: {
       user_name: req.body.user
@@ -408,15 +418,19 @@ app.post("/api/collection/share", function(req, res) {
     var user_id = user.id;
     Collection.findOne({
       where: {
-        collection: "pending",  // change to pending
+        collection: "pending",  //sends shared book to pending collection on profile page
         user_id: user_id
       }
     }).then(function(collection) {
-      Book.create(req.body.book)
-        .then(function(book) {
-          collection.addBook(book);
-          res.send("succesfully shared book");
-        });
+      Book.create({
+        title: req.body.book.title,
+        author: req.body.book.author,
+        summary: sharedBy
+      }).then(function(book) {
+        console.log('rqeQREQEQREQREQREQ: ', req.session.user.user_name)
+        collection.addBook(book);
+        res.send("succesfully shared book");
+      });
     });
   });
 });
@@ -424,13 +438,11 @@ app.post("/api/collection/share", function(req, res) {
 //POST request to add about me section to existing user
 
 app.post("/addAbout", function(req, res) {
-  console.log("in server addAbout");
   User.findOne({
     where: {
       user_name: req.query.user_name
     }
   }).then(function(user) {
-    console.log('user found')
     user.set({
       about_me: req.query.about_me,
       location: req.query.location,
@@ -442,7 +454,6 @@ app.post("/addAbout", function(req, res) {
 });
 
 app.post('/addPhoto', function(req,res){
-  console.log('in server addPhoto');
   User.findOne({
     where:{
       user_name: req.query.user_name
@@ -455,7 +466,6 @@ app.post('/addPhoto', function(req,res){
 })
 
 app.post("/processFriend", function(req, res) {
-  console.log("in server processFriend")
   console.log('username', req.query.user_name)
   User.findOne({
     where: {
@@ -491,12 +501,10 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get friends from the database
 
 app.get("/api/getUsers", function(req, res) {
-  console.log('in get users SERVER')
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
-    console.log('users: ', users);
     res.send(users);
   })
 });
@@ -520,14 +528,11 @@ app.get("/api/getUsers", function(req, res) {
 //GET request to load all properties of current user
 
 app.get("/api/loadUser", function(req, res) {
-  console.log("in server loadUser")
-  console.log('SESSION', req.session)
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
-    console.log('result', user)
     res.send(user);
   })
 });
