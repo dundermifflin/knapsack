@@ -307,12 +307,16 @@ app.post("/api/collections/share", function(req, res) {
 // We have to use POST here, because GET requests do not allow data(collection name) to be sent with a request.
 
 app.post("/api/collection/instance", function(req, res) {
+  var rating = 0;
+  var user_id;
+  var books = [];
+
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
-    var user_id = user.id;
+    user_id = user.id;
     Collection.findOne({
       where: {
         collection: req.body.collection,
@@ -324,13 +328,28 @@ app.post("/api/collection/instance", function(req, res) {
           books = _.map(books, function(item) {
             return {
               title: item.title,
-              author: item.author
+              book_id: item.id,
+              author: item.author,
+              rating: 0
             };
           });
-          res.send(books);
+
+          books.forEach(function(book){
+            Rating.findOne({
+              where: {
+                book_id: book.book_id,
+                user_id: user_id
+              }
+            }).then(function(rating) {
+              book.rating = rating.stars;
+              console.log("book details: ", book);
+              res.send(books);
+            });
+          });
+
         });
       } else {
-        res.send([]);
+        res.send(books);
       }
     });
   });
