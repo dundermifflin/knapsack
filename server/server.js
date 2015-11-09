@@ -355,12 +355,16 @@ app.post("/api/collection/instance", function(req, res) {
 //Unit Test : Pass (10/28/2015)
 
 app.post("/api/collection", function(req, res) {
+
+  var myBook;
+  var myUser;
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
     var user_id = user.id;
+    myUser = user;
     Collection.findOne({
       where: {
         collection: req.body.collection,
@@ -369,11 +373,19 @@ app.post("/api/collection", function(req, res) {
     }).then(function(collection) {
       Book.create(req.body.book)
         .then(function(book) {
+          myBook = book;
           collection.addBook(book);
-          res.status(201).send("succesfully added book");
+        }).then(function() {
+          console.log("myBook", myBook);
+            Rating.create({stars:0, review: ""})
+            .then(function(rating) {
+              myBook.addRating(rating);
+              myUser.addRating(rating);
+              res.status(201).send("succesfully added book", rating);
+            });
+          });
         });
     });
-  });
 });
 
 app.post("/api/collection/delete", function(req, res) {
@@ -437,31 +449,27 @@ app.post("/api/collection/share", function(req, res) {
 });
 
 //POST request to RATE book
-//Unit Test : Pass (11/2/2015)
 
 app.post("/api/rateBook", function(req, res) {
   console.log("req.body.book: ", req.body.book);
   console.log("req.body.rating: ", req.body.rating);
-
-  // User.findOne({
-  //   where: {
-  //     user_name: req.body.user
-  //   }
-  // }).then(function(user) {
-  //   var user_id = user.id;
-  //   Collection.findOne({
-  //     where: {
-  //       collection: "recommended",
-  //       name: user_id
-  //     }
-  //   }).then(function(collection) {
-  //     Book.create(req.body.book)
-  //       .then(function(book) {
-  //         collection.addBook(book);
-  //         res.send("succesfully shared book");
-  //       });
-  //   });
-  // });
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user) {
+    var user_id = user.id;
+    Rating.findOne({
+      where: {
+        user_id: user_id,
+      }
+    }).then(function(rating) {
+      console.log("=================== \nfound this rating: " + rating.stars);
+      rating.set("stars", req.body.rating).save();
+      console.log("+++++++++++++++++++ \nchagned to this rating: " + rating.stars);
+      res.send("succesfully changed book rating to " + req.query.rating);
+    });
+  });
 });
 
 

@@ -302,10 +302,10 @@ angular.module("knapsack.services", [])
           })
         })
         .then(function succesCallback(resp) {
-          snackbar.create("Shared " + Utils.properCaps(book.title) + " with " + Utils.properCaps(user) + "!", 3000);
-          console.log("succesfully shared book to user: " + user);
+          // snackbar.create("Shared " + Utils.properCaps(book.title) + " with " + Utils.properCaps(user) + "!", 3000);
+          console.log("Server rated book: " + book);
         }, function errorCallback(resp) {
-          console.log(resp.status + ": failed sharing book with user: " + user);
+          console.log(resp.status + ": server rating fail");
         });
     };
 
