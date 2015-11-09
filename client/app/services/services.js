@@ -241,6 +241,7 @@ angular.module("knapsack.services", [])
           })
         })
         .then(function succesCallback(resp) {
+          console.log('getbooks Success', resp.data)
           return resp.data;
         }, function errorCallback(resp) {
           console.log(resp.status + ": failed loading books for collection " + collection);

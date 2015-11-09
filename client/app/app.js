@@ -8,7 +8,8 @@ angular.module("knapsack", [
     "knapsack.auth",
     "angular.snackbar",
    "knapsack.friend",
-    "knapsack.profile"
+    "knapsack.profile", 
+    "twitter.timeline"
   ])
   .controller('AppController', function($scope, $location, Auth, AUTH_EVENTS) {
     $scope.currentUser = null;
