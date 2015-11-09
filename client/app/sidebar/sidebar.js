@@ -23,7 +23,7 @@ angular.module("knapsack.sidebar", [])
       $scope.show = !$scope.show;
     };
 
-    $scope.addCollection = function addCollection() {
+    $scope.addCollection = function() {
       Collections.addCollection($scope.newCollection.name)
         .then(getCollections);
       $scope.newCollection.name = "";
@@ -40,6 +40,7 @@ angular.module("knapsack.sidebar", [])
           console.log("success sharing collection: " + collection);
         });
     };
+
 
     getCollections();
   }]);

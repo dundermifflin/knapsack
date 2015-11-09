@@ -1,7 +1,7 @@
 <div id="sidebar" ng-Controller="DropdownCtrl">
   <div>
     <div class="collections">
-      <div class="collection" ng-repeat="collection in data.collections" ng-mouseenter="hover()" ng-mouseleave="hover()">
+      <div class="collection" ng-repeat="collection in data.collections" ng-if="collection != 'pending'" ng-mouseenter="hover()" ng-mouseleave="hover()">
         <a class="book-category" ng-href="#/collection/{{collection}}"> {{collection}}</a>
         <div class="btn-group" uib-dropdown >
           <!-- <button type="button" class="btn btn-sm btn-default" ng-click="loadFriends()" uib-dropdown-toggle> -->
