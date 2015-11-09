@@ -2,12 +2,13 @@
       <h3 class="current-collection"> {{currentCollection}}</h3>
     </div>
 
-    <table st-safe-src="bookCollection" st-table="displayedCollection" class="table book-table">
+        <table st-safe-src="bookCollection" st-table="displayedCollection" class="table book-table">
       <thead>
         <tr>
           <th>Title</th>
           <th>Author</th>
           <th>Share</th>
+          <th ng-if="currentCollection != 'bestsellers'">Like</th>
           <th ng-if="currentCollection != 'bestsellers'">Delete</th>
         </tr>
       </thead>
@@ -27,25 +28,33 @@
           <td> {{book.author}} </td>
           <td>
             <div class="btn-group" uib-dropdown uib-keyboard-nav>
-              <button type="button" class="btn btn-sm btn-default" ng-click="getFriends()" uib-dropdown-toggle>
+              <button type="button" class="btn btn-sm btn-default" ng-click="loadUsers()" uib-dropdown-toggle>
                 <i class="glyphicon glyphicon-share-alt">
                 </i>
               </button>
               <ul class="uib-dropdown-menu" role="menu">
                 <li><input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input></li>
-                <li role="menuitem" ng-click="shareBook(book, user)" ng-repeat="user in friends | filter:query"><a href="#">
+                <li role="menuitem" ng-click="shareBook(book, user)" ng-repeat="user in users | filter:query"><a href="#">
                   {{user}}
                   </a>
                 </li>
               </ul>
           </td>
           <td ng-if="currentCollection != 'bestsellers'">
+            <button ng-show="heart" type="button " ng-click="rateBook(book)" class="btn btn-sm btn-default">
+              <i class="glyphicon glyphicon-heart"></i>
+            </button>
+            <button ng-hide="heart" type="button " ng-click="rateBook(book)" class="btn btn-sm btn-default">
+              <i class="glyphicon glyphicon-heart-empty"></i>
+            </button>
+          </td>
+          <td ng-if="currentCollection != 'bestsellers'">
             <button type="button " ng-click="removeBook(book)" class="btn btn-sm btn-default">
               <i class="glyphicon glyphicon-trash ">
               </i>
-        </button>
-      </td>
-    </tr>
+            </button>
+          </td>
+        </tr>
   </tbody>
   <tfoot>
     <tr>

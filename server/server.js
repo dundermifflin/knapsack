@@ -7,33 +7,13 @@ var db = require("../config/database.js"); // connect to database
 
 var path = require("path");
 var _ = require('underscore');
-var Twit = require('Twit');
+// var Twit = require('Twit');
 var bcrypt = require("bcrypt-nodejs"); // hashing passwords
 var Promise = require("bluebird"); // for promisification
 var app = express();
 var port = process.env.PORT || 3000;
 var ip = "127.0.0.1";
 // var io = require('socket.io')(app);
-
-/*************/
-//SOCKETIO//
-// var tweet = new Twit({
-//   consumer_key: 'aeMWs2jDOaAiodglA2KxIZB5h',
-//   consumer_secret: 'okCtyrQDPQFzesnFgdi0UlANzzh8GWRhhQ786oaKOHebCHQJNh',
-//   access_token: '4020597793-ZHaqgUns6LCzXqezF3KOwr4fIEmYGyyEtvZgaXr',
-//   access_token_secret: 'AUu3HeTKjUgqkiPlbOtZY4aiRG6FQAqY98PuyVkMXzs7m'
-// })
-
-// var stream = tweet.stream('statuses/filter', {
-//   track: 'favorite book'
-// })
-
-// stream.on('connection', function(tweet) {
-// console.log(tweet)
-// io.sockets.emit('stream', tweet);
-
-// })
-
 
 /************************************************************/
 // Initialize Database
@@ -170,6 +150,11 @@ app.post("/api/signup", function(req, res) {
             });
             Collection.create({
               collection: "bestsellers"
+            }).then(function(collection) {
+              user.addCollection(collection);
+            });
+            Collection.create({
+              collection: "pending"
             }).then(function(collection) {
               user.addCollection(collection);
             });
@@ -355,12 +340,16 @@ app.post("/api/collection/instance", function(req, res) {
 //Unit Test : Pass (10/28/2015)
 
 app.post("/api/collection", function(req, res) {
+
+  var myBook;
+  var myUser;
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
     var user_id = user.id;
+    myUser = user;
     Collection.findOne({
       where: {
         collection: req.body.collection,
@@ -369,11 +358,19 @@ app.post("/api/collection", function(req, res) {
     }).then(function(collection) {
       Book.create(req.body.book)
         .then(function(book) {
+          myBook = book;
           collection.addBook(book);
-          res.status(201).send("succesfully added book");
+        }).then(function() {
+          console.log("myBook", myBook);
+            Rating.create({stars:0, review: ""})
+            .then(function(rating) {
+              myBook.addRating(rating);
+              myUser.addRating(rating);
+              res.status(201).send("succesfully added book", rating);
+            });
+          });
         });
     });
-  });
 });
 
 app.post("/api/collection/delete", function(req, res) {
@@ -423,8 +420,8 @@ app.post("/api/collection/share", function(req, res) {
     var user_id = user.id;
     Collection.findOne({
       where: {
-        collection: "recommended",
-        name: user_id
+        collection: "pending",  // change to pending
+        user_id: user_id
       }
     }).then(function(collection) {
       Book.create(req.body.book)
@@ -435,6 +432,31 @@ app.post("/api/collection/share", function(req, res) {
     });
   });
 });
+
+//POST request to RATE book
+
+app.post("/api/rateBook", function(req, res) {
+  console.log("req.body.book: ", req.body.book);
+  console.log("req.body.rating: ", req.body.rating);
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user) {
+    var user_id = user.id;
+    Rating.findOne({
+      where: {
+        user_id: user_id,
+      }
+    }).then(function(rating) {
+      console.log("=================== \nfound this rating: " + rating.stars);
+      rating.set("stars", req.body.rating).save();
+      console.log("+++++++++++++++++++ \nchagned to this rating: " + rating.stars);
+      res.send("succesfully changed book rating to " + req.query.rating);
+    });
+  });
+});
+
 
 //POST request to add about me section to existing user
 
@@ -506,16 +528,17 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get friends from the database
 
 app.get("/api/getUsers", function(req, res) {
-  console.log('in get users')
+  console.log('in get users SERVER')
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
-    res.send(users)
+    console.log('users: ', users);
+    res.send(users);
   })
 });
 
-//this may need to be changed 
+//this may need to be changed
 // app.get("/api/friends", function(req, res) {
 //   console.log("in server GET friends")
 //   User.findOne({

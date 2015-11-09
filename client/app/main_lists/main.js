@@ -7,11 +7,11 @@ angular.module("knapsack.main", [])
 
     $scope.currentCollection = "";
     if ($location.url().split("/")[2]){
-      $scope.currentCollection = $location.url().split("/")[2].replace("%20"," "); 
+      $scope.currentCollection = $location.url().split("/")[2].replace("%20"," ");
       // in the database, we don't want spaces in our collection names, so we replace the space in the url.
-      var dbCollection = $location.url().split("/")[2].replace("%20"," "); 
+      var dbCollection = $location.url().split("/")[2].replace("%20"," ");
     }
-    
+
 
     $scope.searchBooks = function(val) {
       return $http.get('https://www.googleapis.com/books/v1/volumes', {
@@ -44,7 +44,7 @@ angular.module("knapsack.main", [])
       });
     };
 
-    
+
 
     $scope.addBook = function(book) {
       Contents.addBook(dbCollection, book)
@@ -72,12 +72,32 @@ angular.module("knapsack.main", [])
     };
 
     $scope.shareBook = function(book, user) {
+      console.log('share book mainjs');
       Contents.shareBook(dbCollection, {
         title: book.title,
         author: book.author
       }, user);
-      console.log(book, user);
     };
+
+    $scope.newRating = {
+      stars: 0
+    };
+
+    $scope.heart = false;
+
+    $scope.rateBook = function(book) {
+      if ($scope.heart === false){
+        $scope.heart = true;
+        $scope.newRating.stars = 1;
+      } else {
+        $scope.newRating.stars = 0
+        $scope.heart = false;
+      }
+      var foo = $scope.newRating.stars;
+      Contents.rateBook(book, foo);
+      console.log("View sees: " + book.title + " Rating: " + $scope.newRating.stars);
+    };
+
 
     getBooks();
   }])
