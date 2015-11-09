@@ -3,8 +3,9 @@
     </div>
     <div class="col-md-12">
         <div class="text-center">
-<img ng-src='{{user.photo_url}}' class="img-circle profileImg" alt="Profile Pic">
-            <h6 ng-click="photoOpen()">Click To Change Profile Picture</h6>
+            <img ng-src='{{user.photo_url}}' ng-click="photoOpen()" class="img-circle profileImg" alt="Profile Pic">
+            <h3> Hi, {{user.user_name}}. </h3>
+            <a ng-click="aboutMeOpen()">Edit your profile</a>
         </div>
     </div>
     <div class="profile-container">
@@ -20,22 +21,37 @@
             </div>
         </div>
         <div class="col-md-6" id="midColProfile">
-            <h3> Hi, {{user.user_name}}. </h3>
-            <a ng-click="aboutMeOpen()" id="about-me-button">Edit Your Profile</a>
-            <div>
-                {{user.about_me}}
+            <h3> Your new book recommendations </h3>
+            <div class="row">
+                <table st-safe-src="bookCollection" st-table="pending" class="table book-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Shared By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="book in pending">
+                            <td> {{book.title | lowercase}} </td>
+                            <td> {{book.author}} </td>
+                            <td> </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-md-3" id="rightColProfile">
             <h3>Discover</h3>
-            <div class="facts">
-                <!--   <strong><h5>Location</strong>: {{user.location}}</h5>
+            <div id="twitter" twitter-timeline="663156921218674688" auto-resize="true" tweet-limit="10"></div>
+        </div>
+        <!--   <strong><h5>Location</strong>: {{user.location}}</h5>
                 </br>
                 <strong><h5>Age</strong>: {{user.age}}</h5>
                 </br>
                 <strong><h5>Favorite Book</strong>:{{user.favBook}}</h5>
                 </br>
                 <strong><h5>Favorite Author</strong>:{{user.favAuthor}}</h5> -->
-            </div>
-        </div>
     </div>
+</div>
+</div>

@@ -7,33 +7,13 @@ var db = require("../config/database.js"); // connect to database
 
 var path = require("path");
 var _ = require('underscore');
-var Twit = require('Twit');
+// var Twit = require('Twit');
 var bcrypt = require("bcrypt-nodejs"); // hashing passwords
 var Promise = require("bluebird"); // for promisification
 var app = express();
 var port = process.env.PORT || 3000;
 var ip = "127.0.0.1";
 // var io = require('socket.io')(app);
-
-/*************/
-//SOCKETIO//
-// var tweet = new Twit({
-//   consumer_key: 'aeMWs2jDOaAiodglA2KxIZB5h',
-//   consumer_secret: 'okCtyrQDPQFzesnFgdi0UlANzzh8GWRhhQ786oaKOHebCHQJNh',
-//   access_token: '4020597793-ZHaqgUns6LCzXqezF3KOwr4fIEmYGyyEtvZgaXr',
-//   access_token_secret: 'AUu3HeTKjUgqkiPlbOtZY4aiRG6FQAqY98PuyVkMXzs7m'
-// })
-
-// var stream = tweet.stream('statuses/filter', {
-//   track: 'favorite book'
-// })
-
-// stream.on('connection', function(tweet) {
-// console.log(tweet)
-// io.sockets.emit('stream', tweet);
-
-// })
-
 
 /************************************************************/
 // Initialize Database
@@ -171,6 +151,11 @@ app.post("/api/signup", function(req, res) {
             });
             Collection.create({
               collection: "bestsellers"
+            }).then(function(collection) {
+              user.addCollection(collection);
+            });
+            Collection.create({
+              collection: "pending"
             }).then(function(collection) {
               user.addCollection(collection);
             });
@@ -424,7 +409,7 @@ app.post("/api/collection/share", function(req, res) {
     var user_id = user.id;
     Collection.findOne({
       where: {
-        collection: "recommended",
+        collection: "pending",  // change to pending
         user_id: user_id
       }
     }).then(function(collection) {
@@ -549,12 +534,13 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get friends from the database
 
 app.get("/api/getUsers", function(req, res) {
-  console.log('in get users')
+  console.log('in get users SERVER')
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
-    res.send(users)
+    console.log('users: ', users);
+    res.send(users);
   })
 });
 
