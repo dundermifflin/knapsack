@@ -25,6 +25,7 @@ var User = db.import(path.join(__dirname, "../models/Users"));
 var Collection = db.import(path.join(__dirname, "../models/Collections.js"));
 var Book = db.import(path.join(__dirname, "../models/Books.js"));
 var Rating = db.import(path.join(__dirname, "../models/Ratings.js"));
+var Friend = db.import(path.join(__dirname, "../models/Friends.js"));
 
 //Relationships :
 //1.User can have many Collections.
@@ -504,6 +505,71 @@ app.post("/processFriend", function(req, res) {
   });
 });
 
+//get all friends for current user
+
+app.get("/api/getFriends", function(req, res){
+  User.findOne({
+    where:{
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user){
+     //Find all of the current users friends
+      Friend.findAll({
+        where: {
+          user_id: user.id
+        }
+      }).then(function(friendsArray){
+        //return only the friend name
+        friendsArray = _.map(friendsArray, function(friend){
+          return friend.friend_name;
+        })
+        console.log("freinds array: ", friendsArray);
+        res.send(friendsArray);
+      });
+  })
+})
+
+
+  // Friend.findAll({
+  //   where: {
+  //     user_id: "8"
+  //   }
+  // }).then(function(friendsArray){
+  //   friendsArray = _.map(friendsArray, function(friend){
+  //     return friend.friend_id;
+  //   })
+  //   console.log("freinds array: ", friendsArray);
+  // });
+
+
+//add freind into database
+app.post("/api/addFriend", function(req, res){
+  User.findOne({
+    where: {
+      user_name: req.session.user.user_name
+    }
+  }).then(function(user){
+    var userId= user.id
+    User.findOne({
+      where: {
+        //friend name
+        user_name: req.query.friend_name
+      }
+    }).then(function(friend){
+      var friendId = friend.id;
+      var friendName = friend.user_name;
+      Friend.create({
+        user_id: userId,
+        friend_name: friendName,
+        friend_id: friendId
+      }).then(function(friendship){
+        res.send("we da best")
+      })
+    })
+  })
+  
+});
+
 //GET request to get NYTimes bestsellers for default bestsellers list
 
 app.get("/api/collection/nytimes", function(req, res) {
@@ -533,7 +599,6 @@ app.get("/api/getUsers", function(req, res) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
-    console.log('users: ', users);
     res.send(users);
   })
 });

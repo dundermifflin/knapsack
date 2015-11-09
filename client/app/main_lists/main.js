@@ -108,8 +108,16 @@ angular.module("knapsack.main", [])
         $scope.users = users;
       });
   };
+  $scope.getFriends =  function(){
+    Contents.getFriends()
+      .then(function(friends){
+        $scope.friends = friends;
+      });
+  };
 
-  $scope.getUsers()
+
+  $scope.getUsers();
+  $scope.getFriends();
 
   // $scope.getFriends= function(){
   //   Contents.getFriends()
