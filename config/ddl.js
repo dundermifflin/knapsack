@@ -95,6 +95,10 @@ ddl.friends = db.define("friends", {
     type: Sequelize.INTEGER
   },
 
+  friend_name: {
+    type: Sequelize.STRING
+  },
+
   user_id: {
     type: Sequelize.INTEGER
   },

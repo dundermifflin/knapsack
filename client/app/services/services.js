@@ -327,17 +327,15 @@ angular.module("knapsack.services", [])
         });
     };
 
-    // var getFriends = function(username) {
-    //   return $http({
-    //     method: "GET",
-    //     url: "/api/friends", 
-    //     params:{
-    //       name: username
-    //     }
-    //   }).then(function(resp) {
-    //     return resp.data
-    //   })
-    // }
+    var getFriends = function() {
+      return $http({
+        method: "GET",
+        url: "/api/getFriends"
+      }).then(function(resp) {
+        console.log("getFriends GET request data: ", resp.data);
+        return resp.data
+      })
+    }
 
     return {
       getBooks: getBooks,
@@ -345,7 +343,7 @@ angular.module("knapsack.services", [])
       removeBook: removeBook,
       getNytimes: getNytimes,
       getUsers: getUsers,
-      // getFriends: getFriends,
+      getFriends: getFriends,
       shareBook: shareBook
     };
 

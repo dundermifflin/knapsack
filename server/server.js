@@ -471,17 +471,39 @@ app.post("/processFriend", function(req, res) {
 //get all friends for current user
 
 app.get("/api/getFriends", function(req, res){
-  Friend.findAll({
-    where: {
-      user_id: req.session.user.id
+  var array = [];
+  User.findOne({
+    where:{
+      user_name: req.session.user.user_name
     }
-  }).then(function(friendsArray){
-    friendsArray = _.map(friendsArray, function(friend){
-      return friend.friend_id;
-    })
-    res.send(friendsArray);
-  });
+  }).then(function(user){
+     console.log("the user object ", user)
+      Friend.findAll({
+        where: {
+          user_id: user.id
+        }
+      }).then(function(friendsArray){
+        friendsArray = _.map(friendsArray, function(friend){
+          return friend.friend_id;
+        })
+        //TODO ONLY SEND BACK NAMES OF FRIENDS
+        console.log("freinds array: ", friendsArray);
+        res.send(friendsArray);
+      });
+  })
 })
+
+
+  // Friend.findAll({
+  //   where: {
+  //     user_id: "8"
+  //   }
+  // }).then(function(friendsArray){
+  //   friendsArray = _.map(friendsArray, function(friend){
+  //     return friend.friend_id;
+  //   })
+  //   console.log("freinds array: ", friendsArray);
+  // });
 
 
 //add freind into database
@@ -498,9 +520,11 @@ app.post("/api/addFriend", function(req, res){
         user_name: req.query.friend_name
       }
     }).then(function(friend){
-      var friendId = friend.id
+      var friendId = friend.id;
+      var friendName = friend.user_name;
       Friend.create({
         user_id: userId,
+        friend_name: friendName,
         friend_id: friendId
       }).then(function(friendship){
         res.send("we da best")
@@ -539,7 +563,6 @@ app.get("/api/getUsers", function(req, res) {
     users = _.map(users, function(user) {
       return user.user_name;
     });
-    console.log('users: ', users);
     res.send(users);
   })
 });
