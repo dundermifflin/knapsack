@@ -483,8 +483,23 @@ app.post("/processFriend", function(req, res) {
   });
 });
 
-//store friendships in db
+//get all friends for current user
 
+app.get("/api/getFriends", function(req, res){
+  Friend.findAll({
+    where: {
+      user_id: req.session.user.id
+    }
+  }).then(function(friendsArray){
+    friendsArray = _.map(friendsArray, function(friend){
+      return friend.friend_id;
+    })
+    res.send(friendsArray);
+  });
+})
+
+
+//add freind into database
 app.post("/api/addFriend", function(req, res){
   User.findOne({
     where: {

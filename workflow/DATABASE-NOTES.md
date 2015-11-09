@@ -14,7 +14,7 @@ go get the backup:
       based on: https://devcenter.heroku.com/articles/heroku-postgres-backups
 
 
-- got to  heroku pg:psql --app fetch-app
+- got to  heroku pg:psql --app knapsack-2-app
 DATABASE=> drop schema public cascade;
 DATABASE=> create schema public;
 

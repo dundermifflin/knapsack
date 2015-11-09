@@ -9,7 +9,7 @@
           <!-- </button> -->
           <ul class="uib-dropdown-menu" role="menu">
             <li><input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input></li>
-            <li role="menuitem" ng-click="shareCollection(collection, user)" ng-repeat="user in friends | filter:query">
+            <li role="menuitem" ng-click="shareCollection(collection, user)" ng-repeat="user in users | filter:query">
               <a href="#">{{user}}</a>
             </li>
           </ul>
