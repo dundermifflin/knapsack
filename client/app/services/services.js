@@ -313,6 +313,22 @@ angular.module("knapsack.services", [])
         });
     };
 
+    var rateBook = function(book, rating) {
+      return $http({
+          method: "POST",
+          url: "/api/rateBook",
+          data: JSON.stringify({
+            book: book,
+            rating: rating
+          })
+        })
+        .then(function succesCallback(resp) {
+          // snackbar.create("Shared " + Utils.properCaps(book.title) + " with " + Utils.properCaps(user) + "!", 3000);
+          console.log("Server rated book: " + book);
+        }, function errorCallback(resp) {
+          console.log(resp.status + ": server rating fail");
+        });
+    };
 
     var getUsers = function() {
       return $http({
@@ -337,6 +353,7 @@ angular.module("knapsack.services", [])
       })
     }
 
+
     return {
       getBooks: getBooks,
       addBook: addBook,
@@ -344,7 +361,8 @@ angular.module("knapsack.services", [])
       getNytimes: getNytimes,
       getUsers: getUsers,
       getFriends: getFriends,
-      shareBook: shareBook
+      shareBook: shareBook,
+      rateBook: rateBook
     };
 
   }])
