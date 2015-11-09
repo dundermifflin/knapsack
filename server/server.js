@@ -521,7 +521,7 @@ app.post("/processFriend", function(req, res) {
 app.get("/api/getFriends", function(req, res){
   User.findOne({
     where:{
-      user_name: req.session.user.user_name
+      user_name: req.query.user
     }
   }).then(function(user){
      //Find all of the current users friends
