@@ -92,11 +92,6 @@ angular.module("knapsack.main", [])
     Contents.getFriends()
       .then(function(friends){
         $scope.friends = friends;
-        // $scope.friendID = friends;
-        // Contents.getUsers()
-        //   .then(function(users){
-        //     $scope.friends = users;
-        //   });
       });
   };
 

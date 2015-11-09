@@ -471,22 +471,21 @@ app.post("/processFriend", function(req, res) {
 //get all friends for current user
 
 app.get("/api/getFriends", function(req, res){
-  var array = [];
   User.findOne({
     where:{
       user_name: req.session.user.user_name
     }
   }).then(function(user){
-     console.log("the user object ", user)
+     //Find all of the current users friends
       Friend.findAll({
         where: {
           user_id: user.id
         }
       }).then(function(friendsArray){
+        //return only the friend name
         friendsArray = _.map(friendsArray, function(friend){
-          return friend.friend_id;
+          return friend.friend_name;
         })
-        //TODO ONLY SEND BACK NAMES OF FRIENDS
         console.log("freinds array: ", friendsArray);
         res.send(friendsArray);
       });
