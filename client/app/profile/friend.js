@@ -1,7 +1,8 @@
 angular.module('knapsack.friend', ["ui.router"])
   .controller('FriendController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
 
-    $scope.user = Profile.friendDisplay.data
+    $scope.user = Profile.friendDisplay.data;
+    $scope.isFriend = false; //if this is true than show the addFriend button in friendView.html
 
     $scope.getUsers = function() {
       console.log('in get users')
@@ -22,10 +23,25 @@ angular.module('knapsack.friend', ["ui.router"])
       })
     }
 
-    $scope.addFriend = function(friend_name){
-      Profile.addFriend(friend_name).then(function(resp){
+    $scope.addFriend = function(friend_name) {
+      Profile.addFriend(friend_name).then(function(resp) {
         console.log("hello")
       })
     }
+
+    $scope.getAllFriends = function() {
+      var flag = false
+      Contents.getFriends().then(function(resp) {
+        console.log("friends array: ", resp)
+        resp.forEach(function(item) {
+          if (item === $scope.user.user_name) {
+            flag = true;
+          }
+        });
+        if flag
+      });
+    }
+
+    $scope.getAllFriends();
 
   }])
