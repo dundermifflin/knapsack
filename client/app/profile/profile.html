@@ -16,7 +16,7 @@
             </div>
             <div id="friendList">
                 <div ng-init= "getFriends()"ng-repeat="friend in friends">
-                  <li ng-click="processFriend(friend)"><a href="#">{{friend}}</a></li>
+                  <li ng-click="processFriend(friend)"><a  class="friends" href="#">{{friend}}</a></li>
                     <span ng-click="processFriend(friend)">{{friend.user_name}}</span>
                 </div>
             </div>

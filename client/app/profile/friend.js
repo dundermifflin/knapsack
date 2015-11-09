@@ -32,6 +32,7 @@ angular.module('knapsack.friend', ["ui.router"])
     $scope.getAllFriends = function() {
       Contents.getFriends().then(function(resp) {
         console.log("friends array: ", resp)
+        $scope.friends = resp;
         resp.forEach(function(item) {
           if (item === $scope.user.user_name) {
             $scope.isFriend = true;
