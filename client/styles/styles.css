@@ -165,7 +165,7 @@ a.navbar-brand {
 .pagination>.active>a:hover {
     background-color: #b24b4b;
     border-color: #b24b4b;
-    color: #4A4A4A;
+    color: white;
 }
 
 .pagination>li>a {
@@ -180,11 +180,13 @@ a.navbar-brand {
 #logout-button:hover {
     background-color: #b24b4b;
     opacity: 50%;
+    color: white;
 }
 
 #logout-button {
     font-size: 20px;
     padding: 6px 20px;
+    color: #4A4A4A;
 }
 
 button {
