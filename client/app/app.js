@@ -79,7 +79,8 @@ angular.module("knapsack", [
         views: {
           "main": {
             templateUrl: "app/profile/profile.html",
-            controller: "ProfileController"
+            controller: "ProfileController",
+            controller: "DropdownCtrl"
           },
           "friendsearch@profile": {
             templateUrl: "app/dashboard/friendsearch.html",
