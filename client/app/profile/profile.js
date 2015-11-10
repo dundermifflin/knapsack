@@ -69,7 +69,7 @@ $scope.aboutMeOpen = function() {
       userForm: function() {
         return $scope.userForm;
       }
-    };
+    }
  });
 }
     $scope.loadCollections = function() {
