@@ -11,20 +11,19 @@
     <div class="profile-container" ng-controller="DropdownCtrl">
         <div class="col-md-3" id="leftColProfile">
             <h3> Following</h3>
-            <div class="container-fluid" id="searchfriends">
-                <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="otherUser for otherUser in users | filter:$viewValue" typeahead-on-select="processFriend($item)">
-            </div>
             <div id="friendList">
-                <div ng-init= "getFriends()"ng-repeat="friend in friends">
-                  <li ng-click="processFriend(friend)"><a  class="friends" href="#">{{friend}}</a></li>
+                <div ng-init="getFriends()" ng-repeat="friend in friends">
+                    <li ng-click="processFriend(friend)"><a class="friends" href="#">{{friend}}</a></li>
                     <span ng-click="processFriend(friend)">{{friend.user_name}}</span>
                 </div>
+            </div>
+            <div class="container-fluid" id="searchfriends">
+                <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="otherUser for otherUser in users | filter:$viewValue" typeahead-on-select="processFriend($item)">
             </div>
         </div>
         <div class="col-md-6" id="midColProfile">
             <h3> Your new book recommendations </h3>
-            <div class="row">
-                <table st-safe-src="bookCollection" st-table="pending" class="table book-table">
+                <table st-safe-src="bookCollection" id="pendingBooks" st-table="pending" class="table book-table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -53,7 +52,7 @@
                   </a>
                                         </li>
                                     </ul>
-                                    <button type="button" class = "btn btn-sm btn-default" ng-click="removeBook(book)"><i class="glyphicon glyphicon-remove"></button></td>
+                                    <button type="button" class="btn btn-sm btn-default" ng-click="removeBook(book)"><i class="glyphicon glyphicon-remove"></button></td>
                             <td> {{book.summary}} </td>
                         </tr>
                     </tbody>
