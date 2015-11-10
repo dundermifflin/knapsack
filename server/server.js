@@ -536,6 +536,7 @@ app.get("/api/getFriends", function(req, res){
         // })
         console.log("freinds array: ", friendsArray);
         res.send(friendsArray);
+        res.end();
       });
   })
 })
