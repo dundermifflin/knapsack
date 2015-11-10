@@ -78,23 +78,22 @@ angular.module("knapsack.main", [])
       }, user);
     };
 
-    $scope.newRating = {
-      stars: 0
-    };
-
-    $scope.heart = false;
 
     $scope.rateBook = function(book) {
-      if ($scope.heart === false){
-        $scope.heart = true;
-        $scope.newRating.stars = 1;
+      $scope.displayedCollection.forEach(function(displayBook, index){
+        if (displayBook.title === book.title) {
+          currentBook = index;
+        }
+      });
+
+      if ($scope.displayedCollection[currentBook].rating === 0){
+        $scope.displayedCollection[currentBook].rating = 1;
       } else {
-        $scope.newRating.stars = 0
-        $scope.heart = false;
+        $scope.displayedCollection[currentBook].rating = 0;
       }
-      var foo = $scope.newRating.stars;
-      Contents.rateBook(book, foo);
-      console.log("View sees: " + book.title + " Rating: " + $scope.newRating.stars);
+      console.log($scope.displayedCollection[currentBook].rating)
+
+      Contents.rateBook(book, $scope.displayedCollection[currentBook].rating);
     };
 
 

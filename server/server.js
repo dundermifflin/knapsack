@@ -313,12 +313,16 @@ app.post("/api/collections/share", function(req, res) {
 // We have to use POST here, because GET requests do not allow data(collection name) to be sent with a request.
 
 app.post("/api/collection/instance", function(req, res) {
+  var rating = 0;
+  var user_id;
+  var books = [];
+
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
-    var user_id = user.id;
+    user_id = user.id;
     Collection.findOne({
       where: {
         collection: req.body.collection,
@@ -330,14 +334,28 @@ app.post("/api/collection/instance", function(req, res) {
           books = _.map(books, function(item) {
             return {
               title: item.title,
+              book_id: item.id,
               author: item.author,
-              summary: item.summary
+              rating: 0
             };
           });
-          res.send(books);
+
+          books.forEach(function(book){
+            Rating.findOne({
+              where: {
+                book_id: book.book_id,
+                user_id: user_id
+              }
+            }).then(function(rating) {
+              book.rating = rating.stars;
+              console.log("book details: ", book);
+              res.send(books);
+            });
+          });
+
         });
       } else {
-        res.send([]);
+        res.send(books);
       }
     });
   });
@@ -453,7 +471,7 @@ app.post("/api/collection/share", function(req, res) {
 
 app.post("/api/rateBook", function(req, res) {
   console.log("req.body.book: ", req.body.book);
-  console.log("req.body.rating: ", req.body.rating);
+  // console.log("req.body.rating: ", req.body.rating);
   User.findOne({
     where: {
       user_name: req.session.user.user_name
@@ -463,12 +481,26 @@ app.post("/api/rateBook", function(req, res) {
     Rating.findOne({
       where: {
         user_id: user_id,
+        book_id: req.body.book.book_id
       }
     }).then(function(rating) {
+
+      // console.log(rating)
+      // ratings.forEach(function(rating){
+      //   console.log(rating.stars);
+      // });
+
       console.log("=================== \nfound this rating: " + rating.stars);
-      rating.set("stars", req.body.rating).save();
-      console.log("+++++++++++++++++++ \nchagned to this rating: " + rating.stars);
-      res.send("succesfully changed book rating to " + req.query.rating);
+      if (rating.stars === 1){
+        rating.set("stars", 0).save();
+      } else {
+        rating.set("stars", 1).save();
+      }
+
+      console.log("+++++++++++++++++++ \nchanged to this rating: " + rating.stars);
+
+
+      res.send("succesfully changed book rating to ");
     });
   });
 });
@@ -578,7 +610,7 @@ app.post("/api/addFriend", function(req, res){
       })
     })
   })
-  
+
 });
 
 //GET request to get NYTimes bestsellers for default bestsellers list
