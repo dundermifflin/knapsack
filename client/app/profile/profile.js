@@ -1,5 +1,5 @@
 angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
-.controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
+.controller('ProfileController', ['$scope', '$uibModal', 'Contents', 'Collections',  '$state', 'Profile', function($scope, $uibModal, Contents, Collections, $state, Profile) {
   $scope.user = {};
 
   $scope.loadUser = function() {
