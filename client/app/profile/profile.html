@@ -8,12 +8,12 @@
             <a ng-click="aboutMeOpen()">Edit your profile</a>
         </div>
     </div>
-    <div class="profile-container" ng-controller="DropdownCtrl">
+    <div class="profile-container">
         <div class="col-md-3" id="leftColProfile">
             <h3> Following</h3>
             <div id="friendList">
                 <div  ng-repeat="friend in friends">
-                    <li ng-click="processFriend(friend.friend_name)">
+                    <li  class="friendPhotos"ng-click="processFriend(friend.friend_name)">
                         <span><img class="friendListPhoto" ng-src="{{friend.photo_url}}">
                         <a class="friends" href="#">{{friend.friend_name}}</a></span></li>
                     <span ng-click="processFriend(friend)">{{friend.user_name}}</span>
