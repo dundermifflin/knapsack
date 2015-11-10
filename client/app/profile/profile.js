@@ -1,5 +1,4 @@
 angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
-
 .controller('ProfileController', ['$scope', '$uibModal', 'Contents', '$state', 'Profile', function($scope, $uibModal, Contents, $state, Profile) {
   $scope.user = {};
 
@@ -70,26 +69,31 @@ $scope.aboutMeOpen = function() {
       userForm: function() {
         return $scope.userForm;
       }
+    };
+ });
+}
+    $scope.loadCollections = function() {
+        Collections.getAll().then(function(collections){
+          $scope.collections= collections;
+        })
     }
-  });
-};
+    $scope.addBook = function(collection, book) {
+        Contents.addBook(collection, book)
+            .then(function() {
+                console.log('in remove book scope')
+                $scope.removeBook(book)
+            });
+        // $scope.newBook.title = "";
+    };
 
-$scope.photoOpen = function() {
-  var modalInstance = $uibModal.open({
-    templateUrl: "app/profile/photo.html",
-    controller: PhotoController,
-    size: "modal-xs",
-    scope: $scope,
-    resolve: {
-      userForm: function() {
-        return $scope.userForm;
-      }
-    }
-  });
-};
-
-$scope.loadUser();
-// $scope.loadFriends();
+    $scope.removeBook = function(book) {
+        Contents.removeBook("pending", {
+            title: book.title,
+            author: book.author
+        }).then(function() {
+            $scope.getPendingBooks()
+        });
+    };
 }])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
@@ -98,26 +102,25 @@ var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
     console.log('USER', $scope.user)
     if ($scope.form.userForm.$valid) {
       Profile.addAbout($scope.user.user_name, $scope.user);
-    } else {
     }
     $modalInstance.dismiss("submit");
   }
-  $scope.cancel = function() {
-    $modalInstance.dismiss("cancel");
-  };
+    $scope.cancel = function() {
+        $modalInstance.dismiss("cancel");
+    };
 }
 
 var PhotoController = function($scope, userForm, Profile, $modalInstance) {
-  $scope.form = {};
+    $scope.form = {};
 
-  $scope.addPhoto = function() {
-    if ($scope.form.userForm.$valid) {
-      Profile.addPhoto($scope.user);
-    } else {
-      console.log('error submitting photo')
+    $scope.addPhoto = function() {
+        if ($scope.form.userForm.$valid) {
+            Profile.addPhoto($scope.user);
+        } else {
+            console.log('error submitting photo')
+        }
+        $modalInstance.dismiss("submit");
     }
-    $modalInstance.dismiss("submit");
-  }
 
   $scope.cancel = function() {
     $modalInstance.dismiss("cancel");

@@ -30,29 +30,47 @@
                             <th>Title</th>
                             <th>Author</th>
                             <th>Shared By</th>
+                            <th>Sack</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="book in pending">
                             <td> {{book.title | lowercase}} </td>
                             <td> {{book.author}} </td>
+                            <td></td>
+                            <td>
+                                <div class="btn-group" uib-dropdown uib-keyboard-nav>
+                                    <button type="button" class="btn btn-sm btn-default" ng-click="loadCollections()" uib-dropdown-toggle>
+                                        <i class="glyphicon glyphicon-ok">
+                </i>
+                                    </button>
+                                    <ul class="uib-dropdown-menu" role="menu">
+                                        <li>
+                                            <input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input>
+                                        </li>
+                                        <li role="menuitem" ng-click="addBook(collection,book)" ng-repeat="collection in collections | filter:query" ng-if="collection != 'bestsellers'"><a href="#">
+                  {{collection}}
+                  </a>
+                                        </li>
+                                    </ul>
+                                    <button type="button" class = "btn btn-sm btn-default" ng-click="removeBook(book)"><i class="glyphicon glyphicon-remove"></button></td>
                             <td> {{book.summary}} </td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
-        </div>
-        <div class="col-md-3" id="rightColProfile">
-            <h3>Discover</h3>
-            <div id="twitter" twitter-timeline="663156921218674688" auto-resize="true" tweet-limit="10"></div>
-        </div>
-        <!--   <strong><h5>Location</strong>: {{user.location}}</h5>
+            <div class="col-md-3" id="rightColProfile">
+                <h3>Discover</h3>
+                <div id="twitter" twitter-timeline="663156921218674688" auto-resize="true" tweet-limit="10"></div>
+            </div>
+            <!--   <strong><h5>Location</strong>: {{user.location}}</h5>
                 </br>
                 <strong><h5>Age</strong>: {{user.age}}</h5>
                 </br>
                 <strong><h5>Favorite Book</strong>:{{user.favBook}}</h5>
                 </br>
                 <strong><h5>Favorite Author</strong>:{{user.favAuthor}}</h5> -->
+        </div>
     </div>
-</div>
 </div>
