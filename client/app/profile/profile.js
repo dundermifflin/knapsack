@@ -100,23 +100,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
         });
     };
 
-    $scope.photoOpen = function() {
-        var modalInstance = $uibModal.open({
-            templateUrl: "app/profile/photo.html",
-            controller: PhotoController,
-            size: "modal-xs",
-            scope: $scope,
-            resolve: {
-                userForm: function() {
-                    return $scope.userForm;
-                }
-            }
-        });
-    };
-
-    $scope.loadUser();
-    // $scope.loadFriends();
-}])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
     $scope.form = {};
