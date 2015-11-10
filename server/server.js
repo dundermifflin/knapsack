@@ -456,7 +456,7 @@ app.post("/api/collection/share", function(req, res) {
 
 app.post("/api/rateBook", function(req, res) {
   console.log("req.body.book: ", req.body.book);
-  console.log("req.body.rating: ", req.body.rating);
+  // console.log("req.body.rating: ", req.body.rating);
   User.findOne({
     where: {
       user_name: req.session.user.user_name
@@ -466,12 +466,26 @@ app.post("/api/rateBook", function(req, res) {
     Rating.findOne({
       where: {
         user_id: user_id,
+        book_id: req.body.book.book_id
       }
     }).then(function(rating) {
+
+      // console.log(rating)
+      // ratings.forEach(function(rating){
+      //   console.log(rating.stars);
+      // });
+
       console.log("=================== \nfound this rating: " + rating.stars);
-      rating.set("stars", req.body.rating).save();
-      console.log("+++++++++++++++++++ \nchagned to this rating: " + rating.stars);
-      res.send("succesfully changed book rating to " + req.query.rating);
+      if (rating.stars === 1){
+        rating.set("stars", 0).save();
+      } else {
+        rating.set("stars", 1).save();
+      }
+
+      console.log("+++++++++++++++++++ \nchanged to this rating: " + rating.stars);
+
+
+      res.send("succesfully changed book rating to ");
     });
   });
 });
