@@ -102,6 +102,10 @@ ddl.friends = db.define("friends", {
   user_id: {
     type: Sequelize.INTEGER
   },
+  
+  photo_url: {
+    type: Sequelize.STRING
+  },
 
   freezeTableName: true
 
