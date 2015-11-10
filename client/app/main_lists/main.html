@@ -34,19 +34,29 @@
               </button>
               <ul class="uib-dropdown-menu" role="menu">
                 <li><input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input></li>
-                <li role="menuitem" ng-click="shareBook(book, user)" ng-repeat="user in friends | filter:query"><a href="#">
-                  {{user}}
+                <li role="menuitem" ng-click="shareBook(book, user)" ng-repeat="friend in friends | filter:query"><a href="#">
+                  {{friend.friend_name}}
                   </a>
                 </li>
               </ul>
           </td>
           <td ng-if="currentCollection != 'bestsellers'">
-            <button ng-show="heart" type="button " ng-click="rateBook(book)" class="btn btn-sm btn-default">
-              <i class="glyphicon glyphicon-heart"></i>
-            </button>
-            <button ng-hide="heart" type="button " ng-click="rateBook(book)" class="btn btn-sm btn-default">
+
+
+
+            <div >
+            <button ng-hide="book.rating === 1" type="button " ng-click="rateBook(book)" class="btn btn-sm btn-default">
               <i class="glyphicon glyphicon-heart-empty"></i>
             </button>
+
+            <button ng-show="book.rating === 1" type="button " ng-click="rateBook(book)" class="btn btn-sm btn-default">
+              <i class="glyphicon glyphicon-heart"></i>
+            </button>
+
+            </div>
+
+
+
           </td>
           <td ng-if="currentCollection != 'bestsellers'">
             <button type="button " ng-click="removeBook(book)" class="btn btn-sm btn-default">

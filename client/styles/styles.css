@@ -49,7 +49,7 @@ body {
 .profile-container {
     margin-top: 50px;
     text-align: center;
-    border: 3px solid #B8E986;
+    border: 2px solid #B8E986;
 }
 
 .row header {
@@ -105,7 +105,7 @@ i {
 #friendList {
     height: 60%;
     width: auto;
-    border: 3px solid #B8E986;
+    border: 2px solid #B8E986;
     margin-top: 20px;
     padding-left: 10px;
     text-align: center;
@@ -114,7 +114,7 @@ i {
 .facts {
     height: 60%;
     width: auto;
-    border: 3px solid #B8E986;
+    border: 2px solid #B8E986;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
@@ -126,7 +126,7 @@ i {
     -moz-border-radius: 11px;
     -webkit-border-radius: 11px;
     border-radius: 11px;
-    border: 3px solid #B8E986;
+    border: 2px solid #B8E986;
     display: inline-block;
     cursor: pointer;
     /*font-family: 'Roboto', sans-serif;*/
@@ -142,7 +142,7 @@ i {
     -moz-border-radius: 11px;
     -webkit-border-radius: 11px;
     border-radius: 11px;
-    border: 3px solid #B8E986;
+    border: 2px solid #B8E986;
     display: inline-block;
     cursor: pointer;
     /*font-family: 'Roboto', sans-serif;*/
@@ -270,6 +270,11 @@ a.book-category {
     line-height: 2;
 }
 
+.friendListPhoto {
+    width: 30px;
+    height: 30px;
+}
+
 #new-collection {
     font-size: 18px;
     border: none;
@@ -286,8 +291,17 @@ a.book-category {
     font-weight: 100;
 }
 
+#searchfriends {
+    margin-top: 20px;
+}
+
 .landing-table {
     padding-top: 50px;
+}
+
+#pendingBooks {
+    border: 2px solid #B8E986;
+    margin-top: 20px;
 }
 
 .book-table,

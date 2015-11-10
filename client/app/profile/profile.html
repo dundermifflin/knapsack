@@ -11,49 +11,50 @@
     <div class="profile-container" ng-controller="DropdownCtrl">
         <div class="col-md-3" id="leftColProfile">
             <h3> Following</h3>
-            <div class="container-fluid" id="searchfriends">
-                <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="otherUser for otherUser in users | filter:$viewValue" typeahead-on-select="processFriend($item)">
-            </div>
             <div id="friendList">
-                <div ng-init= "getFriends()"ng-repeat="friend in friends">
-                  <li ng-click="processFriend(friend)"><a  class="friends" href="#">{{friend}}</a></li>
+                <div ng-init="getFriends()" ng-repeat="friend in friends">
+                    <li ng-click="processFriend(friend)">
+                        <span><img class="friendListPhoto" ng-srce="{{friend.photo_url}}">
+                        <a class="friends" href="#">{{friend.friend_name}}</a></span></li>
                     <span ng-click="processFriend(friend)">{{friend.user_name}}</span>
                 </div>
+            </div>
+            <div class="container-fluid" id="searchfriends">
+                <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="otherUser for otherUser in users | filter:$viewValue" typeahead-on-select="processFriend($item)">
             </div>
         </div>
         <div class="col-md-6" id="midColProfile">
             <h3> Your new book recommendations </h3>
-            <div class="row">
-                <table st-safe-src="bookCollection" st-table="pending" class="table book-table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Shared By</th>
-                            <th>Sack</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="book in pending">
-                            <td> {{book.title | lowercase}} </td>
-                            <td> {{book.author}} </td>
-                            <td></td>
-                            <td>
-                                <div class="btn-group" uib-dropdown uib-keyboard-nav>
-                                    <button type="button" class="btn btn-sm btn-default" ng-click="loadCollections()" uib-dropdown-toggle>
-                                        <i class="glyphicon glyphicon-ok">
+            <table st-safe-src="bookCollection" id="pendingBooks" st-table="pending" class="table book-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Shared By</th>
+                        <th>Sack</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="book in pending">
+                        <td> {{book.title | lowercase}} </td>
+                        <td> {{book.author}} </td>
+                        <td></td>
+                        <td>
+                            <div class="btn-group" uib-dropdown uib-keyboard-nav>
+                                <button type="button" class="btn btn-sm btn-default" ng-click="loadCollections()" uib-dropdown-toggle>
+                                    <i class="glyphicon glyphicon-ok">
                 </i>
-                                    </button>
-                                    <ul class="uib-dropdown-menu" role="menu">
-                                        <li>
-                                            <input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input>
-                                        </li>
-                                        <li role="menuitem" ng-click="addBook(collection,book)" ng-repeat="collection in collections | filter:query" ng-if="collection != 'bestsellers'"><a href="#">
+                                </button>
+                                <ul class="uib-dropdown-menu" role="menu">
+                                    <li>
+                                        <input type="text" class="form-control" ng-model="query" ng-click="$event.stopPropagation()"></input>
+                                    </li>
+                                    <li role="menuitem" ng-click="addBook(collection,book)" ng-repeat="collection in collections | filter:query" ng-if="collection != 'bestsellers'"><a href="#">
                   {{collection}}
                   </a>
-                                        </li>
-                                    </ul>
-                                    <button type="button" class = "btn btn-sm btn-default" ng-click="removeBook(book)"><i class="glyphicon glyphicon-remove"></button></td>
+                                    </li>
+                                </ul>
+                                <button type="button" class="btn btn-sm btn-default" ng-click="removeBook(book)"><i class="glyphicon glyphicon-remove"></button></td>
                             <td> {{book.summary}} </td>
                         </tr>
                     </tbody>
