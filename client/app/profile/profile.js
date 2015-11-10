@@ -13,39 +13,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
             })
     }
 
-    $scope.loadCollections = function() {
-        Collections.getAll().then(function(collections){
-          $scope.collections= collections;
-        })
-    }
-    $scope.addBook = function(collection, book) {
-        Contents.addBook(collection, book)
-            .then(function() {
-                console.log('in remove book scope')
-                $scope.removeBook(book)
-            });
-        // $scope.newBook.title = "";
-    };
-
-    $scope.removeBook = function(book) {
-        Contents.removeBook("pending", {
-            title: book.title,
-            author: book.author
-        }).then(function() {
-            $scope.getPendingBooks()
-        });
-    };
-
-    $scope.getPendingBooks = function() {
-        console.log('in pending controller')
-        Contents.getBooks("pending")
-            .then(function(books) {
-                $scope.pending = books;
-                $scope.pendingCollection = [].concat(books);
-            });
-    }
-
-
     // $scope.loadFriends = function() {
     //   Contents.getFriends($scope.user.user_name)
     //     .then(function(friends) {
@@ -99,6 +66,38 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
             }
         });
     };
+
+    $scope.loadCollections = function() {
+        Collections.getAll().then(function(collections){
+          $scope.collections= collections;
+        })
+    }
+    $scope.addBook = function(collection, book) {
+        Contents.addBook(collection, book)
+            .then(function() {
+                console.log('in remove book scope')
+                $scope.removeBook(book)
+            });
+        // $scope.newBook.title = "";
+    };
+
+    $scope.removeBook = function(book) {
+        Contents.removeBook("pending", {
+            title: book.title,
+            author: book.author
+        }).then(function() {
+            $scope.getPendingBooks()
+        });
+    };
+
+    $scope.getPendingBooks = function() {
+        console.log('in pending controller')
+        Contents.getBooks("pending")
+            .then(function(books) {
+                $scope.pending = books;
+                $scope.pendingCollection = [].concat(books);
+            });
+    }
 }])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
