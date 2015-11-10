@@ -99,7 +99,7 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline"])
             }
         });
     };
-
+}])
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
     $scope.form = {};
