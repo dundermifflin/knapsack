@@ -519,7 +519,10 @@ app.get("/api/getFriends", function(req, res){
           user_id: user.id
         }
       }).then(function(friendsArray){
-
+        //return only the friend name
+        friendsArray = _.map(friendsArray, function(friend){
+          return friend.friend_name;
+        })
         console.log("freinds array: ", friendsArray);
         res.send(friendsArray);
       });
