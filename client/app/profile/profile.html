@@ -8,14 +8,15 @@
             <a ng-click="aboutMeOpen()">Edit your profile</a>
         </div>
     </div>
-    <div class="profile-container">
+    <div class="profile-container" ng-controller="DropdownCtrl">
         <div class="col-md-3" id="leftColProfile">
             <h3> Following</h3>
-            <div class="container-fluid" id="searchfriends" ng-controller="DropdownCtrl">
+            <div class="container-fluid" id="searchfriends">
                 <input type="text" ng-init="getUsers()" ng-model="customSelected" placeholder="Connect with friends!" uib-typeahead="otherUser for otherUser in users | filter:$viewValue" typeahead-on-select="processFriend($item)">
             </div>
             <div id="friendList">
-                <div ng-repeat="friend in friends">
+                <div ng-init= "getFriends()"ng-repeat="friend in friends">
+                  <li ng-click="processFriend(friend)"><a  class="friends" href="#">{{friend}}</a></li>
                     <span ng-click="processFriend(friend)">{{friend.user_name}}</span>
                 </div>
             </div>
@@ -53,6 +54,7 @@
                                         </li>
                                     </ul>
                                     <button type="button" class = "btn btn-sm btn-default" ng-click="removeBook(book)"><i class="glyphicon glyphicon-remove"></button></td>
+                            <td> {{book.summary}} </td>
                         </tr>
                     </tbody>
                 </table>

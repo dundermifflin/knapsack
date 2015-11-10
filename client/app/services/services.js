@@ -78,7 +78,8 @@ angular.module("knapsack.services", [])
 .factory("Profile", function($http, $state) {
 
     var friendDisplay={
-      data:{}
+      data:{},
+      currentUser: {}
     }
 
     var loadUser = function() {
@@ -87,7 +88,8 @@ angular.module("knapsack.services", [])
         method: 'GET',
         url: "api/loadUser"
       }).then(function(resp) {
-        console.log('friend data', resp.data)
+        console.log('friend data', resp.data);
+        friendDisplay.currentUser =  resp.data;
         return resp.data
       })
     }
@@ -111,6 +113,19 @@ angular.module("knapsack.services", [])
         // .then(function success(resp){
         //   console.log(resp.status + ':successfully added About section to database');
         // })
+    }
+
+    var addFriend = function(friend_name) {
+      console.log("inside addFriend")
+      return $http({
+        method: 'POST',
+        url: "api/addFriend",
+        params: {
+          friend_name: friend_name
+        }
+      }).then(function(resp){
+        return resp.data
+      })
     }
 
     var processFriend = function(friend) {
@@ -146,7 +161,8 @@ angular.module("knapsack.services", [])
       addAbout: addAbout,
       processFriend: processFriend,
       loadUser: loadUser,
-      addPhoto: addPhoto
+      addPhoto: addPhoto,
+      addFriend: addFriend
     }
   })
   .factory("Collections", ["$http", "snackbar", "Utils", function($http, snackbar, Utils) {
@@ -329,17 +345,19 @@ angular.module("knapsack.services", [])
         });
     };
 
-    // var getFriends = function(username) {
-    //   return $http({
-    //     method: "GET",
-    //     url: "/api/friends",
-    //     params:{
-    //       name: username
-    //     }
-    //   }).then(function(resp) {
-    //     return resp.data
-    //   })
-    // }
+    var getFriends = function(user) {
+      return $http({
+        method: "GET",
+        url: "/api/getFriends",
+        params: {
+          user: user
+        }
+      }).then(function(resp) {
+        console.log("getFriends GET request data: ", resp.data);
+        return resp.data
+      })
+    }
+
 
     return {
       getBooks: getBooks,
@@ -347,7 +365,7 @@ angular.module("knapsack.services", [])
       removeBook: removeBook,
       getNytimes: getNytimes,
       getUsers: getUsers,
-      // getFriends: getFriends,
+      getFriends: getFriends,
       shareBook: shareBook,
       rateBook: rateBook
     };
