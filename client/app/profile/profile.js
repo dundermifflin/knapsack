@@ -1,5 +1,6 @@
 angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.main"])
-  .controller('ProfileController', ['$scope', '$uibModal', 'Contents', 'Collections', '$state', 'Profile', function($scope, $uibModal, Contents, Collections, $state, Profile) {
+
+.controller('ProfileController', ['$scope', '$uibModal', 'Contents', 'Collections', '$state', 'Profile', function($scope, $uibModal, Contents, Collections, $state, Profile) {
     $scope.user = {};
 
 
@@ -97,6 +98,27 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
       });
     };
   }])
+
+  .controller("DropdownCtrl", ["$scope", "Contents", "Profile", function($scope, Contents, Profile) {
+    $scope.user = Profile.friendDisplay.currentUser;
+    $scope.getUsers = function() {
+      Contents.getUsers()
+        .then(function(users) {
+          $scope.users = users;
+        });
+    };
+    $scope.getFriends = function() {
+      Contents.getFriends($scope.user.user_name)
+        .then(function(friends) {
+          $scope.friends = friends;
+        });
+    };
+
+
+    $scope.getUsers();
+    $scope.getFriends();
+
+  }]);
 
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
