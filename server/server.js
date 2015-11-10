@@ -270,10 +270,9 @@ app.post("/api/collections/share", function(req, res) {
       user_name: req.session.user.user_name //currently logged in user
     }
   }).then(function(user) {
-    var user_id = user.id;
     Collection.findOne({
       where: {
-        user_id: user_id,
+        user_id: user.id,
         collection: req.body.collection
       }
     }).then(function(collection) {
@@ -283,18 +282,14 @@ app.post("/api/collections/share", function(req, res) {
             user_name: req.body.user //user you are sharing with
           }
         }).then(function(user) {
-          var user_id = user.id;
-          Collection.findOne({
-            where: {
-              user_id: user_id,
-              collection: "pending"
-            }
+          Collection.create({
+            collection: req.body.collection
           }).then(function(collection) {
+            user.addCollection(collection);
             for (var i = 0; i < books.length; i++) {
               Book.create({
                   title: books[i].title,
-                  author: books[i].author,
-                  summary: books[i].summary
+                  author: books[i].author
                 })
                 .then(function(book) {
                   collection.addBook(book);
@@ -313,16 +308,12 @@ app.post("/api/collections/share", function(req, res) {
 // We have to use POST here, because GET requests do not allow data(collection name) to be sent with a request.
 
 app.post("/api/collection/instance", function(req, res) {
-  var rating = 0;
-  var user_id;
-  var books = [];
-
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
-    user_id = user.id;
+    var user_id = user.id;
     Collection.findOne({
       where: {
         collection: req.body.collection,
@@ -334,28 +325,13 @@ app.post("/api/collection/instance", function(req, res) {
           books = _.map(books, function(item) {
             return {
               title: item.title,
-              book_id: item.id,
-              author: item.author,
-              rating: 0
+              author: item.author
             };
           });
-
-          books.forEach(function(book){
-            Rating.findOne({
-              where: {
-                book_id: book.book_id,
-                user_id: user_id
-              }
-            }).then(function(rating) {
-              book.rating = rating.stars;
-              console.log("book details: ", book);
-              res.send(books);
-            });
-          });
-
+          res.send(books);
         });
       } else {
-        res.send(books);
+        res.send([]);
       }
     });
   });
@@ -381,11 +357,7 @@ app.post("/api/collection", function(req, res) {
         user_id: user_id
       }
     }).then(function(collection) {
-      Book.create({
-        title: req.body.book.title,
-        author: req.body.book.author,
-        summary: req.session.user.user_name
-      })
+      Book.create(req.body.book)
         .then(function(book) {
           myBook = book;
           collection.addBook(book);
@@ -441,7 +413,6 @@ app.post("/api/collection/delete", function(req, res) {
 //Unit Test : Pass (11/2/2015)
 
 app.post("/api/collection/share", function(req, res) {
-  var sharedBy = req.session.user.user_name;
   User.findOne({
     where: {
       user_name: req.body.user
@@ -450,19 +421,15 @@ app.post("/api/collection/share", function(req, res) {
     var user_id = user.id;
     Collection.findOne({
       where: {
-        collection: "pending",  //sends shared book to pending collection on profile page
+        collection: "pending",  // change to pending
         user_id: user_id
       }
     }).then(function(collection) {
-      Book.create({
-        title: req.body.book.title,
-        author: req.body.book.author,
-        summary: sharedBy
-      }).then(function(book) {
-        console.log('rqeQREQEQREQREQREQ: ', req.session.user.user_name)
-        collection.addBook(book);
-        res.send("succesfully shared book");
-      });
+      Book.create(req.body.book)
+        .then(function(book) {
+          collection.addBook(book);
+          res.send("succesfully shared book");
+        });
     });
   });
 });
@@ -471,7 +438,7 @@ app.post("/api/collection/share", function(req, res) {
 
 app.post("/api/rateBook", function(req, res) {
   console.log("req.body.book: ", req.body.book);
-  // console.log("req.body.rating: ", req.body.rating);
+  console.log("req.body.rating: ", req.body.rating);
   User.findOne({
     where: {
       user_name: req.session.user.user_name
@@ -481,26 +448,12 @@ app.post("/api/rateBook", function(req, res) {
     Rating.findOne({
       where: {
         user_id: user_id,
-        book_id: req.body.book.book_id
       }
     }).then(function(rating) {
-
-      // console.log(rating)
-      // ratings.forEach(function(rating){
-      //   console.log(rating.stars);
-      // });
-
       console.log("=================== \nfound this rating: " + rating.stars);
-      if (rating.stars === 1){
-        rating.set("stars", 0).save();
-      } else {
-        rating.set("stars", 1).save();
-      }
-
-      console.log("+++++++++++++++++++ \nchanged to this rating: " + rating.stars);
-
-
-      res.send("succesfully changed book rating to ");
+      rating.set("stars", req.body.rating).save();
+      console.log("+++++++++++++++++++ \nchagned to this rating: " + rating.stars);
+      res.send("succesfully changed book rating to " + req.query.rating);
     });
   });
 });
@@ -509,11 +462,13 @@ app.post("/api/rateBook", function(req, res) {
 //POST request to add about me section to existing user
 
 app.post("/addAbout", function(req, res) {
+  console.log("in server addAbout");
   User.findOne({
     where: {
       user_name: req.query.user_name
     }
   }).then(function(user) {
+    console.log('user found')
     user.set({
       about_me: req.query.about_me,
       location: req.query.location,
@@ -525,6 +480,7 @@ app.post("/addAbout", function(req, res) {
 });
 
 app.post('/addPhoto', function(req,res){
+  console.log('in server addPhoto');
   User.findOne({
     where:{
       user_name: req.query.user_name
@@ -537,6 +493,7 @@ app.post('/addPhoto', function(req,res){
 })
 
 app.post("/processFriend", function(req, res) {
+  console.log("in server processFriend")
   console.log('username', req.query.user_name)
   User.findOne({
     where: {
@@ -553,7 +510,7 @@ app.post("/processFriend", function(req, res) {
 app.get("/api/getFriends", function(req, res){
   User.findOne({
     where:{
-      user_name: req.query.user
+      user_name: req.session.user.user_name
     }
   }).then(function(user){
      //Find all of the current users friends
@@ -563,12 +520,11 @@ app.get("/api/getFriends", function(req, res){
         }
       }).then(function(friendsArray){
         //return only the friend name
-        // friendsArray = _.map(friendsArray, function(friend){
-        //   return friend.friend_name;
-        // })
+        friendsArray = _.map(friendsArray, function(friend){
+          return friend.friend_name;
+        })
         console.log("freinds array: ", friendsArray);
         res.send(friendsArray);
-        res.end();
       });
   })
 })
@@ -605,8 +561,7 @@ app.post("/api/addFriend", function(req, res){
       Friend.create({
         user_id: userId,
         friend_name: friendName,
-        friend_id: friendId, 
-        photo_url: friend.photo_url
+        friend_id: friendId
       }).then(function(friendship){
         res.send("we da best")
       })
@@ -639,6 +594,7 @@ app.get("/api/collection/nytimes", function(req, res) {
 //GET request to get friends from the database
 
 app.get("/api/getUsers", function(req, res) {
+  console.log('in get users SERVER')
   User.findAll().then(function(users) {
     users = _.map(users, function(user) {
       return user.user_name;
@@ -666,11 +622,14 @@ app.get("/api/getUsers", function(req, res) {
 //GET request to load all properties of current user
 
 app.get("/api/loadUser", function(req, res) {
+  console.log("in server loadUser")
+  console.log('SESSION', req.session)
   User.findOne({
     where: {
       user_name: req.session.user.user_name
     }
   }).then(function(user) {
+    console.log('result', user)
     res.send(user);
   })
 });
