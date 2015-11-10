@@ -40,7 +40,7 @@ ddl.users = db.define("users", {
   },
 
   freezeTableName: true
-  //prevents sequelize from adding (s) to end of table
+    //prevents sequelize from adding (s) to end of table
 });
 
 ddl.collections = db.define("collections", {
@@ -69,7 +69,7 @@ ddl.books = db.define("books", {
 
   summary: {
     type: Sequelize.TEXT
-   },
+  },
 
   freezeTableName: true
 
@@ -99,6 +99,10 @@ ddl.friends = db.define("friends", {
     type: Sequelize.STRING
   },
 
+  photo_url: {
+    type: Sequelize.STRING
+  },
+
   user_id: {
     type: Sequelize.INTEGER
   },
@@ -114,14 +118,28 @@ ddl.friends = db.define("friends", {
 
 
 ///Set Up Relationships
-ddl.users.hasMany(ddl.collections, {as: 'collection'});
-ddl.users.hasMany(ddl.users, {as: 'user_name'});
-ddl.users.hasMany(ddl.ratings, {as: 'stars'});
-ddl.books.hasMany(ddl.ratings, {as: 'stars'});
-ddl.collections.belongsToMany(ddl.books, {through : 'collections_to_books'});
-ddl.books.belongsToMany(ddl.collections, {through : 'collections_to_books'});
-ddl.users.belongsToMany(ddl.users, { as: 'friends', through : 'users_to_friends'});
+ddl.users.hasMany(ddl.collections, {
+  as: 'collection'
+});
+ddl.users.hasMany(ddl.users, {
+  as: 'user_name'
+});
+ddl.users.hasMany(ddl.ratings, {
+  as: 'stars'
+});
+ddl.books.hasMany(ddl.ratings, {
+  as: 'stars'
+});
+ddl.collections.belongsToMany(ddl.books, {
+  through: 'collections_to_books'
+});
+ddl.books.belongsToMany(ddl.collections, {
+  through: 'collections_to_books'
+});
+ddl.users.belongsToMany(ddl.users, {
+  as: 'friends',
+  through: 'users_to_friends'
+});
 
 
 module.exports = ddl;
-

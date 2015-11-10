@@ -568,6 +568,7 @@ app.get("/api/getFriends", function(req, res){
         // })
         console.log("freinds array: ", friendsArray);
         res.send(friendsArray);
+        res.end();
       });
   })
 })
@@ -604,7 +605,8 @@ app.post("/api/addFriend", function(req, res){
       Friend.create({
         user_id: userId,
         friend_name: friendName,
-        friend_id: friendId
+        friend_id: friendId, 
+        photo_url: friend.photo_url
       }).then(function(friendship){
         res.send("we da best")
       })
