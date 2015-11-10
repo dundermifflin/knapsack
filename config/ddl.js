@@ -89,6 +89,24 @@ ddl.ratings = db.define("ratings", {
 
 });
 
+ddl.friends = db.define("friends", {
+
+  friend_id: {
+    type: Sequelize.INTEGER
+  },
+
+  friend_name: {
+    type: Sequelize.STRING
+  },
+
+  user_id: {
+    type: Sequelize.INTEGER
+  },
+
+  freezeTableName: true
+
+});
+
 
 
 ///Set Up Relationships
