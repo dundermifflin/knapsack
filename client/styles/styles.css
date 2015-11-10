@@ -300,3 +300,8 @@ table {
     border-collapse: inherit;
     text-align: left;
 }
+
+.friends {
+    cursor: pointer;
+    color: #3b5998;
+}

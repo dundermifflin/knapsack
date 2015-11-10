@@ -78,7 +78,8 @@ angular.module("knapsack.services", [])
 .factory("Profile", function($http, $state) {
 
     var friendDisplay={
-      data:{}
+      data:{},
+      currentUser: {}
     }
 
     var loadUser = function() {
@@ -87,7 +88,8 @@ angular.module("knapsack.services", [])
         method: 'GET',
         url: "api/loadUser"
       }).then(function(resp) {
-        console.log('friend data', resp.data)
+        console.log('friend data', resp.data);
+        friendDisplay.currentUser =  resp.data;
         return resp.data
       })
     }
@@ -343,10 +345,13 @@ angular.module("knapsack.services", [])
         });
     };
 
-    var getFriends = function() {
+    var getFriends = function(user) {
       return $http({
         method: "GET",
-        url: "/api/getFriends"
+        url: "/api/getFriends",
+        params: {
+          user: user
+        }
       }).then(function(resp) {
         console.log("getFriends GET request data: ", resp.data);
         return resp.data

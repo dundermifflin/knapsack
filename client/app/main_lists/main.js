@@ -101,7 +101,8 @@ angular.module("knapsack.main", [])
     getBooks();
   }])
 
-.controller("DropdownCtrl", ["$scope", "Contents", function($scope, Contents) {
+.controller("DropdownCtrl", ["$scope", "Contents", "Profile", function($scope, Contents, Profile) {
+  $scope.user = Profile.friendDisplay.currentUser;
   $scope.getUsers = function() {
     Contents.getUsers()
       .then(function(users) {
@@ -109,7 +110,7 @@ angular.module("knapsack.main", [])
       });
   };
   $scope.getFriends =  function(){
-    Contents.getFriends()
+    Contents.getFriends($scope.user.user_name)
       .then(function(friends){
         $scope.friends = friends;
       });
