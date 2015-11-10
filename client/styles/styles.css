@@ -283,6 +283,11 @@ a.book-category {
     font-weight: 100;
 }
 
+#friendPhotos{
+    position: fixed;
+    left: 10px;
+    margin-right: 3px;
+}
 #new-book {
     font-size: 16px;
     border: none;
