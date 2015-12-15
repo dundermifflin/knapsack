@@ -3,8 +3,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
 .controller('ProfileController', ['$scope', '$uibModal', 'Contents', 'Collections', '$state', 'Profile', function($scope, $uibModal, Contents, Collections, $state, Profile) {
   $scope.user = {};
 
-
-
   $scope.loadUser = function() {
     Profile.loadUser()
       .then(function(user) {
@@ -27,7 +25,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
   // $scope.loadFriends = function() {
   //   Contents.getFriends($scope.user.user_name)
   //     .then(function(friends) {
-  //       console.log('FRIENDS:', friends)
   //       $scope.friends = friends;
   //     });
   // };
@@ -47,6 +44,7 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
       $state.go('friend')
     })
   }
+
   $scope.photoOpen = function() {
     var modalInstance = $uibModal.open({
       templateUrl: "app/profile/photo.html",
@@ -70,9 +68,8 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
   };
 
   $scope.loadUser();
-  
+
   $scope.getPendingBooks();
-  // $scope.loadFriends();
 
   $scope.aboutMeOpen = function() {
     var modalInstance = $uibModal.open({
@@ -98,7 +95,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
         console.log('in remove book scope')
         $scope.removeBook(book)
       });
-    // $scope.newBook.title = "";
   };
 
   $scope.removeBook = function(book) {
@@ -110,7 +106,6 @@ angular.module('knapsack.profile', ["ui.router", "twitter.timeline", "knapsack.m
     });
   };
 }])
-
 
 
 var AboutMeController = function($scope, userForm, Profile, $modalInstance) {
@@ -143,6 +138,3 @@ var PhotoController = function($scope, userForm, Profile, $modalInstance) {
     $modalInstance.dismiss("cancel");
   };
 };
-
-//need about me controller
-//need fact controller

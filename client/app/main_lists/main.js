@@ -12,7 +12,6 @@ angular.module("knapsack.main", [])
       var dbCollection = $location.url().split("/")[2].replace("%20"," ");
     }
 
-
     $scope.searchBooks = function(val) {
       return $http.get('https://www.googleapis.com/books/v1/volumes', {
         params: {
@@ -42,8 +41,6 @@ angular.module("knapsack.main", [])
         $scope.bookCollection = [].concat(resp);
       });
     };
-
-
 
     $scope.addBook = function(book) {
       Contents.addBook(dbCollection, book)
@@ -78,7 +75,6 @@ angular.module("knapsack.main", [])
       }, user);
     };
 
-
     $scope.rateBook = function(book) {
       $scope.displayedCollection.forEach(function(displayBook, index){
         if (displayBook.title === book.title) {
@@ -95,7 +91,6 @@ angular.module("knapsack.main", [])
 
       Contents.rateBook(book, $scope.displayedCollection[currentBook].rating);
     };
-
 
     getBooks();
   }])
@@ -115,17 +110,7 @@ angular.module("knapsack.main", [])
       });
   };
 
-
   $scope.getUsers();
   $scope.getFriends();
-
-  // $scope.getFriends= function(){
-  //   Contents.getFriends()
-  //   .then(function(friends){
-  //     $scope.friends=friends;
-  //   });
-  // }
-
-  // $scope.getFriends();
 
 }]);

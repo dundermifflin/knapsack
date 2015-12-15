@@ -3,14 +3,14 @@
   "description": "",
   "main": "client/app/app.js",
   "authors": [
-    "mollymerp <mollylloyd@gmail.com>",
-    "arthurmathies <arthur.mathies@googlemail.com",
-    "ccnixon <chrisnxn@gmail.com>",
-    "cjpuskar <cjpuskar@comcast.net>",
-    "sujaypatel16 <sujay.sanjay.patel@gmail.com>"
+    "andrewthuang <andrew.huang12@gmail.com>",
+    "yusufmodan <yumodan@gmail.com",
+    "melodylu <melodylu@gmail.com>",
+    "rachellader <rachel.l.lader@gmail.com>",
+    "grooveIsAll <robert.m.velasco@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/knapsack-app/knapsack",
+  "homepage": "https://github.com/dundermifflin/knapsack",
   "moduleType": [],
   "ignore": [
     "**/.*",
