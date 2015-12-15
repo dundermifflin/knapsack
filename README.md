@@ -6,7 +6,7 @@ Knapsack 2.0 is a web application platform to allow the user to categorize books
 
   - __Product Owner__: Andrew Huang
   - __Scrum Master__: Yusuf Modan
-  - __Development Team Members__: Melody Lu,  Robert Velasco, Rachel Lader
+  - __Development Team Members__: Melody Lu, Robert Velasco, Rachel Lader
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ Key Features :
 - Clean and simple UI
 - Auto complete feature utilizing Google Books API
 
-Knapsack 1.0 leverages Angular, Express, Node, Postgres, Sequelize, and Heroku technologies.
+Knapsack 2.0 leverages Angular, Express, Node, Postgres, Sequelize, and Heroku technologies.
 
 ## Requirements
 

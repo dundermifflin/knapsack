@@ -7,8 +7,8 @@ angular.module("knapsack", [
     "knapsack.sidebar",
     "knapsack.auth",
     "angular.snackbar",
-   "knapsack.friend",
-    "knapsack.profile", 
+    "knapsack.friend",
+    "knapsack.profile",
     "twitter.timeline"
   ])
   .controller('AppController', function($scope, $location, Auth, AUTH_EVENTS) {
@@ -25,7 +25,6 @@ angular.module("knapsack", [
   })
   .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouteProvider) {
     // $urlRouteProvider.otherwise("/");
-
 
     $stateProvider
       .state("landing", {
@@ -58,11 +57,11 @@ angular.module("knapsack", [
         }
       })
       .state("friend", {
-        url:"/friend:user'", 
+        url:"/friend:user'",
         views:{
           "main": {
             templateUrl: "app/profile/friendView.html",
-            controller: "FriendController", 
+            controller: "FriendController",
           },
           "friendsearch@friend": {
             templateUrl: "app/dashboard/friendsearch.html",

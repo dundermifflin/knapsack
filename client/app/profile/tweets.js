@@ -1,4 +1,3 @@
-
 angular.module('twitter.timeline', [])
 	.directive('twitterTimeline', [function() {
 		return {

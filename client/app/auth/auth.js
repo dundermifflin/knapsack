@@ -1,8 +1,6 @@
 angular.module("knapsack.auth", ["ui.router"])
 
 .controller("authController", ["$scope", "$rootScope", "$location", "$uibModal", "$log", "Auth", "AUTH_EVENTS", function($scope, $rootScope, $location, $uibModal, $log, Auth, AUTH_EVENTS) {
-  
- 
 
   $scope.signupOpen = function() {
     var modalInstance = $uibModal.open({
